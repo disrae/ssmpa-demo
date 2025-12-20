@@ -1,65 +1,160 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { Question } from '@/lib/types';
+import { getCurrentLesson } from '@/lib/demo-data';
+import { VideoPlayer } from '@/components/VideoPlayer';
+import { QuestionOverlay } from '@/components/QuestionOverlay';
+import { CurriculumSidebar } from '@/components/CurriculumSidebar';
+
+export default function DemoPage() {
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [seekTo, setSeekTo] = useState<number | undefined>(undefined);
+  const [feedback, setFeedback] = useState<{isCorrect: boolean; message: string} | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [lastPausePoint, setLastPausePoint] = useState(0);
+  const lastProcessedSecond = useRef<number>(-1);
+
+  const currentLesson = getCurrentLesson();
+
+  // Create questions indexed by second for efficient lookup
+  const questionsBySecond = useMemo(() => {
+    const questions: Record<number, Question> = {};
+    currentLesson.questions.forEach(question => {
+      questions[Math.floor(question.time)] = question;
+    });
+    return questions;
+  }, [currentLesson]);
+
+  // Check for questions at each second
+  useEffect(() => {
+    const currentSecond = Math.floor(currentTime);
+
+    // Only process if we haven't already processed this second
+    if (currentSecond !== lastProcessedSecond.current) {
+      lastProcessedSecond.current = currentSecond;
+
+      const questionAtSecond = questionsBySecond[currentSecond];
+
+      if (questionAtSecond && !showQuestion) {
+        // Found a question at this second - update state
+        // eslint-disable-next-line
+        setCurrentQuestion(questionAtSecond);
+        setLastPausePoint(currentTime); // Remember where we paused
+        setIsPlaying(false);
+        setShowQuestion(true);
+      }
+    }
+  }, [currentTime, questionsBySecond, showQuestion]);
+
+  // Clear seekTo after it's been used
+  useEffect(() => {
+    if (seekTo !== undefined) {
+      // Clear it after a short delay to ensure the seek happens
+      const timeout = setTimeout(() => setSeekTo(undefined), 100);
+      return () => clearTimeout(timeout);
+    }
+  }, [seekTo]);
+
+  const handleAnswer = (answer: number | boolean | string) => {
+    if (!currentQuestion) return;
+
+    // Validate the answer
+    let isCorrect = false;
+
+    if (currentQuestion!.type === 'multiple-choice') {
+      isCorrect = answer === currentQuestion!.correctAnswer;
+    } else if (currentQuestion!.type === 'true-false') {
+      console.log('Answer:', answer, 'Correct:', currentQuestion!.correctAnswer);
+      isCorrect = answer === currentQuestion!.correctAnswer;
+    } else if (currentQuestion!.type === 'short-answer') {
+      isCorrect = typeof answer === 'string' && typeof currentQuestion!.correctAnswer === 'string'
+        ? answer.toLowerCase().trim() === currentQuestion!.correctAnswer.toLowerCase().trim()
+        : false;
+    }
+
+    // Set feedback to show in modal (don't close modal yet)
+    setFeedback({
+      isCorrect,
+      message: currentQuestion!.explanation
+    });
+  };
+
+  const handleContinue = () => {
+    // Clear feedback and close modal
+    setFeedback(null);
+    setShowQuestion(false);
+
+    // Resume playing
+    setIsPlaying(true);
+  };
+
+  const handleWatchAgain = () => {
+    // Go back to last pause point (where question was triggered)
+    setSeekTo(lastPausePoint);
+    setFeedback(null); // Clear feedback
+    setShowQuestion(false);
+    setIsPlaying(true);
+  };
+
+  const handleTryAgain = () => {
+    // Clear feedback and form - let user try again
+    setFeedback(null);
+    // Form will re-render without feedback, allowing user to answer again
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen bg-gray-900 flex">
+      {/* Curriculum Sidebar Toggle */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="fixed top-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        📚 Curriculum
+      </button>
+
+      {/* Main Video Area */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-4xl">
+        <VideoPlayer
+          videoSrc={currentLesson.videoSrc}
+          onTimeUpdate={setCurrentTime}
+          isPlaying={isPlaying}
+          questionActive={showQuestion}
+          seekTo={seekTo}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+          {/* Lesson Info */}
+          <div className="mt-4 text-white">
+            <h1 className="text-2xl font-bold">{currentLesson.title}</h1>
+            <p className="text-gray-300">{currentLesson.description}</p>
+            <p className="text-sm text-gray-400 mt-2">
+              Time: {Math.floor(currentTime / 60)}:{(currentTime % 60).toString().padStart(2, '0')}
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+
+      {/* Question Overlay */}
+      {showQuestion && currentQuestion && (
+        <QuestionOverlay
+          question={currentQuestion}
+          onAnswer={handleAnswer}
+          onClose={handleContinue}
+          onWatchAgain={handleWatchAgain}
+          onTryAgain={handleTryAgain}
+          feedback={feedback}
+        />
+      )}
+
+      {/* Curriculum Sidebar */}
+      <CurriculumSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
     </div>
   );
 }
