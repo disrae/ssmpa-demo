@@ -8,7 +8,8 @@ export interface Question {
   question: string;
   options?: string[]; // for multiple choice
   correctAnswer: number | boolean | string;
-  explanation: string; // feedback text
+  explanation: string; // feedback text for correct answers
+  wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
 }
 
 export interface VideoLesson {

@@ -1,6 +1,7 @@
 'use client';
 
 import { Question } from '@/lib/types';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 interface QuestionOverlayProps {
   question: Question;
@@ -54,12 +55,14 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
         {feedback && feedback.isCorrect ? (
           // Show success feedback and continue button
           <div>
-            <div className="p-4 rounded-lg mb-6 bg-green-50 border border-green-200">
+            <div>
               <div className="flex items-center space-x-2 mb-2">
-                <span className="text-2xl text-green-600">✅</span>
+                <CheckCircle className="w-6 h-6 text-green-600" />
                 <span className="font-medium text-green-800">Correct!</span>
               </div>
-              <p className="text-gray-700">{feedback.message}</p>
+              <div className="px-4 py-2 rounded mb-6 bg-green-50 border border-green-200">
+                <p className="text-gray-700">{feedback.message}</p>
+              </div>
             </div>
             <div className="mt-6">
               <button
@@ -74,12 +77,14 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
           // Show question form (with error feedback if wrong answer was submitted)
           <>
             {feedback && !feedback.isCorrect && (
-              <div className="p-4 rounded-lg mb-6 bg-red-50 border border-red-200">
+              <div>
                 <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-2xl text-red-600">❌</span>
+                  <XCircle className="w-6 h-6 text-red-600" />
                   <span className="font-medium text-red-800">Incorrect - Try Again</span>
                 </div>
+                <div className="px-4 py-2 rounded mb-6 bg-red-50 border border-red-200">
                 <p className="text-gray-700">{feedback.message}</p>
+                </div>
               </div>
             )}
 

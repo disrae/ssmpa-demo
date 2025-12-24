@@ -5,7 +5,8 @@ export interface Question {
   question: string;
   options?: string[]; // for multiple choice
   correctAnswer: number | boolean | string;
-  explanation: string; // feedback text
+  explanation: string; // feedback text for correct answers
+  wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
 }
 
 export interface VideoLesson {
@@ -57,7 +58,13 @@ export const curriculumModules: Module[] = [
               'Export certification requirements'
             ],
             correctAnswer: 1,
-            explanation: 'Class D licenses allow farmers to sell meat directly to consumers at farmgate, supporting local food systems.'
+            explanation: 'Class D licenses allow farmers to sell meat directly to consumers at farmgate, supporting local food systems.',
+            wrongAnswerHints: [
+              'Think about the scale and direct-to-consumer nature of Class D operations.',
+              '', // Correct answer gets no hint
+              'Consider who benefits most from Class D licensing - is it food service businesses?',
+              'Class D is about local sales, not international trade requirements.'
+            ]
           },
           {
             id: 'q1-2',
@@ -65,7 +72,8 @@ export const curriculumModules: Module[] = [
             type: 'true-false',
             question: 'Personal responsibility for food safety begins at the farm level.',
             correctAnswer: true,
-            explanation: 'Every person involved in meat production shares responsibility for food safety from farm to table.'
+            explanation: 'Every person involved in meat production shares responsibility for food safety from farm to table.',
+            wrongAnswerHints: 'Consider where meat production begins - does food safety responsibility start later in the process?'
           },
           {
             id: 'q1-3',
@@ -79,7 +87,13 @@ export const curriculumModules: Module[] = [
               'Compliance with food safety standards'
             ],
             correctAnswer: 2,
-            explanation: 'Class D licenses are for small-scale farmgate operations, not large commercial processing facilities.'
+            explanation: 'Class D licenses are for small-scale farmgate operations, not large commercial processing facilities.',
+            wrongAnswerHints: [
+              'Facility inspection is indeed required for Class D licensing.',
+              'Personal training and certification are essential requirements.',
+              '', // Correct answer gets no hint
+              'Food safety compliance is mandatory for all meat processing operations.'
+            ]
           },
           {
             id: 'q1-4',
@@ -87,7 +101,8 @@ export const curriculumModules: Module[] = [
             type: 'true-false',
             question: 'Farmers must maintain detailed records of all slaughter activities.',
             correctAnswer: true,
-            explanation: 'Record-keeping is essential for regulatory compliance and food safety traceability.'
+            explanation: 'Record-keeping is essential for regulatory compliance and food safety traceability.',
+            wrongAnswerHints: 'Think about regulatory requirements - what documentation is typically needed for compliance?'
           },
           {
             id: 'q1-5',
@@ -101,7 +116,13 @@ export const curriculumModules: Module[] = [
               'No annual limit'
             ],
             correctAnswer: 3,
-            explanation: 'Class D licenses have no annual limit on animal numbers, though practical capacity varies by operation.'
+            explanation: 'Class D licenses have no annual limit on animal numbers, though practical capacity varies by operation.',
+            wrongAnswerHints: [
+              'Consider that Class D operations can be quite small - is 50 the right limit?',
+              'Think about larger farm operations - might they need more capacity?',
+              'Small commercial operations might have this limit, but what about Class D?',
+              '' // Correct answer gets no hint
+            ]
           }
         ]
       },
@@ -124,7 +145,13 @@ export const curriculumModules: Module[] = [
               'Health Canada'
             ],
             correctAnswer: 2,
-            explanation: 'The BC Meat Inspection Program, administered by the Ministry of Agriculture, regulates slaughter facilities in British Columbia.'
+            explanation: 'The BC Meat Inspection Program, administered by the Ministry of Agriculture, regulates slaughter facilities in British Columbia.',
+            wrongAnswerHints: [
+              'The Ministry of Agriculture oversees many agricultural programs, but is meat inspection their direct responsibility?',
+              'CFIA handles federal meat inspection, but what about provincial programs?',
+              '', // Correct answer gets no hint
+              'Health Canada focuses on public health, but meat inspection involves more specific regulatory oversight.'
+            ]
           }
         ]
       },
@@ -141,7 +168,8 @@ export const curriculumModules: Module[] = [
             type: 'true-false',
             question: 'Slaughter facility operators are legally responsible for animal welfare during the slaughter process.',
             correctAnswer: true,
-            explanation: 'Facility operators must ensure humane treatment and proper stunning procedures are followed at all times.'
+            explanation: 'Facility operators must ensure humane treatment and proper stunning procedures are followed at all times.',
+            wrongAnswerHints: 'Consider the legal obligations of facility operators - who is responsible for ensuring animal welfare?'
           }
         ]
       }
@@ -177,7 +205,13 @@ export const curriculumModules: Module[] = [
               '25 meters'
             ],
             correctAnswer: 1,
-            explanation: 'A minimum 5-meter separation helps prevent cross-contamination and reduces animal stress.'
+            explanation: 'A minimum 5-meter separation helps prevent cross-contamination and reduces animal stress.',
+            wrongAnswerHints: [
+              'There are indeed minimum distance requirements for biosecurity and welfare reasons.',
+              '', // Correct answer gets no hint
+              '5 meters is the standard minimum - is 10 meters excessive?',
+              '25 meters would create significant space challenges for most facilities.'
+            ]
           }
         ]
       }
@@ -207,7 +241,8 @@ export const curriculumModules: Module[] = [
             type: 'true-false',
             question: 'Animals showing signs of severe illness should not be slaughtered.',
             correctAnswer: true,
-            explanation: 'Severely ill animals must be euthanized, not slaughtered, to prevent food safety risks and animal suffering.'
+            explanation: 'Severely ill animals must be euthanized, not slaughtered, to prevent food safety risks and animal suffering.',
+            wrongAnswerHints: 'Think about food safety and animal welfare - what should happen to severely ill animals?'
           }
         ]
       }
@@ -243,7 +278,13 @@ export const curriculumModules: Module[] = [
               '90 seconds'
             ],
             correctAnswer: 1,
-            explanation: 'The stun-to-stick interval should not exceed 30 seconds to ensure the animal remains insensible.'
+            explanation: 'The stun-to-stick interval should not exceed 30 seconds to ensure the animal remains insensible.',
+            wrongAnswerHints: [
+              '15 seconds is too short and may not allow proper positioning.',
+              '', // Correct answer gets no hint
+              '60 seconds is too long - the animal may regain consciousness.',
+              '90 seconds definitely exceeds the maximum allowable time.'
+            ]
           }
         ]
       }
@@ -279,7 +320,13 @@ export const curriculumModules: Module[] = [
               'Depends on the species'
             ],
             correctAnswer: 0,
-            explanation: 'Poultry should be bled head-first to ensure proper blood drainage and prevent contamination.'
+            explanation: 'Poultry should be bled head-first to ensure proper blood drainage and prevent contamination.',
+            wrongAnswerHints: [
+              '', // Correct answer gets no hint
+              'Consider contamination risks - which direction prevents blood from pooling in edible parts?',
+              'There are specific requirements for proper bleeding technique.',
+              'While species matter for many procedures, bleeding order is standardized for poultry.'
+            ]
           }
         ]
       }
@@ -309,7 +356,8 @@ export const curriculumModules: Module[] = [
             type: 'true-false',
             question: 'HACCP plans must identify potential biological, chemical, and physical hazards.',
             correctAnswer: true,
-            explanation: 'HACCP requires identification of all three types of hazards: biological (pathogens), chemical (residues), and physical (foreign objects).'
+            explanation: 'HACCP requires identification of all three types of hazards: biological (pathogens), chemical (residues), and physical (foreign objects).',
+            wrongAnswerHints: 'HACCP is comprehensive - what types of hazards must be considered in food safety planning?'
           }
         ]
       }

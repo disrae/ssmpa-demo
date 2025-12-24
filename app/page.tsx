@@ -78,10 +78,26 @@ export default function DemoPage() {
         : false;
     }
 
+    // Determine feedback message: use hint for wrong answers, explanation for correct
+    let message = '';
+    if (isCorrect) {
+      message = currentQuestion!.explanation;
+    } else {
+      // Use hint for wrong answers
+      if (currentQuestion!.type === 'multiple-choice' && Array.isArray(currentQuestion!.wrongAnswerHints)) {
+        const hintIndex = typeof answer === 'number' ? answer : 0;
+        message = currentQuestion!.wrongAnswerHints[hintIndex] || 'Think about this more carefully.';
+      } else if (typeof currentQuestion!.wrongAnswerHints === 'string') {
+        message = currentQuestion!.wrongAnswerHints;
+      } else {
+        message = 'Think about this more carefully.';
+      }
+    }
+
     // Set feedback to show in modal (don't close modal yet)
     setFeedback({
       isCorrect,
-      message: currentQuestion!.explanation
+      message
     });
   };
 
