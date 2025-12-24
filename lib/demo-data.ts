@@ -45,7 +45,95 @@ export const curriculumModules: Module[] = [
         description: 'Understanding the provincial meat inspection framework and requirements',
         duration: 600, // 10:00
         videoSrc: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        questions: []
+        questions: [
+          {
+            id: 'q1-1',
+            time: 5,
+            type: 'multiple-choice',
+            question: 'What is the primary purpose of the BC Meat Inspection Program?',
+            options: [
+              'To regulate restaurant operations',
+              'To ensure safe meat production and protect public health',
+              'To collect taxes on meat sales',
+              'To promote international meat exports'
+            ],
+            correctAnswer: 1,
+            explanation: 'The BC Meat Inspection Program ensures meat safety and protects public health through regulatory oversight.',
+            wrongAnswerHints: [
+              'Consider the core mission of meat inspection programs - what is their primary goal?',
+              '', // Correct answer
+              'Meat inspection is about safety and health, not revenue collection.',
+              'While exports are important, the primary focus is domestic food safety.'
+            ]
+          },
+          {
+            id: 'q1-2',
+            time: 10,
+            type: 'true-false',
+            question: 'Meat inspection programs help prevent foodborne illnesses.',
+            correctAnswer: true,
+            explanation: 'Regular inspection and oversight prevent contamination and ensure meat safety.',
+            wrongAnswerHints: 'Consider how meat inspection contributes to public health and food safety.'
+          },
+          {
+            id: 'q1-3',
+            time: 15,
+            type: 'multiple-choice',
+            question: 'Which of these is a key component of meat inspection?',
+            options: [
+              'Facility design review',
+              'Employee uniform selection',
+              'Marketing strategy development',
+              'Social media management'
+            ],
+            correctAnswer: 0,
+            explanation: 'Facility design is critical for maintaining sanitary conditions and preventing contamination.',
+            wrongAnswerHints: [
+              '', // Correct answer
+              'Uniforms are important but not the core inspection focus.',
+              'Marketing is not part of meat inspection requirements.',
+              'Social media management has no role in food safety inspection.'
+            ]
+          },
+          {
+            id: 'q1-4',
+            time: 20,
+            type: 'true-false',
+            question: 'Personal hygiene is important for meat processors.',
+            correctAnswer: true,
+            explanation: 'Clean hands, clothing, and practices prevent contamination during meat processing.',
+            wrongAnswerHints: 'Think about how human contact can affect meat safety and quality.'
+          },
+          {
+            id: 'q1-5',
+            time: 25,
+            type: 'multiple-choice',
+            question: 'What temperature should meat be kept at during processing?',
+            options: [
+              'Room temperature',
+              'Below 4°C (39°F)',
+              'Above 60°C (140°F)',
+              'Freezing at -18°C (0°F)'
+            ],
+            correctAnswer: 1,
+            explanation: 'Cold temperatures prevent bacterial growth and maintain meat quality and safety.',
+            wrongAnswerHints: [
+              'Room temperature promotes bacterial growth and spoilage.',
+              '', // Correct answer
+              'High temperatures are for cooking, not processing/storage.',
+              'Freezing preserves meat but is not the standard processing temperature.'
+            ]
+          },
+          {
+            id: 'q1-6',
+            time: 30,
+            type: 'true-false',
+            question: 'Record keeping is required for meat processing operations.',
+            correctAnswer: true,
+            explanation: 'Detailed records track processes, temperatures, and inspections for compliance and traceability.',
+            wrongAnswerHints: 'Consider regulatory requirements - what documentation is typically needed?'
+          }
+        ]
       },
       {
         id: 'module1-licensing',
