@@ -40,10 +40,8 @@ export default function DemoPage() {
       const questionAtSecond = questionsBySecond[currentSecond];
 
       if (questionAtSecond && !showQuestion) {
-        // Found a question at this second - update state
         // eslint-disable-next-line
         setCurrentQuestion(questionAtSecond);
-        setLastPausePoint(currentTime); // Remember where we paused
         setIsPlaying(false);
         setShowQuestion(true);
       }
@@ -93,18 +91,13 @@ export default function DemoPage() {
   };
 
   const handleWatchAgain = () => {
-    // Go back to last pause point (where question was triggered)
-    setSeekTo(lastPausePoint);
-    setFeedback(null); // Clear feedback
+    const seekTarget = Math.max(0, currentTime - 4);
+    setSeekTo(seekTarget);
+    setFeedback(null);
     setShowQuestion(false);
     setIsPlaying(true);
   };
 
-  const handleTryAgain = () => {
-    // Clear feedback and form - let user try again
-    setFeedback(null);
-    // Form will re-render without feedback, allowing user to answer again
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 flex">
@@ -142,7 +135,6 @@ export default function DemoPage() {
           onAnswer={handleAnswer}
           onClose={handleContinue}
           onWatchAgain={handleWatchAgain}
-          onTryAgain={handleTryAgain}
           feedback={feedback}
         />
       )}

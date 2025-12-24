@@ -7,14 +7,13 @@ interface QuestionOverlayProps {
   onAnswer: (answer: number | boolean | string) => void;
   onClose: () => void;
   onWatchAgain: () => void;
-  onTryAgain: () => void;
   feedback?: {
     isCorrect: boolean;
     message: string;
   } | null;
 }
 
-export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, onTryAgain, feedback }: QuestionOverlayProps) {
+export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, feedback }: QuestionOverlayProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -144,22 +143,13 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, onT
                 >
                   Submit Answer
                 </button>
-                <div className="flex space-x-3">
-                  <button
-                    type="button"
-                    onClick={onTryAgain}
-                    className="flex-1 px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-colors border border-blue-200 rounded-md"
-                  >
-                    Try Again
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onWatchAgain}
-                    className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors border border-gray-200 rounded-md"
-                  >
-                    Watch Again
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={onWatchAgain}
+                  className="w-full px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors border border-gray-200 rounded-md"
+                >
+                  Watch Again
+                </button>
               </div>
             </form>
           </>
