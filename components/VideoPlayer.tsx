@@ -20,7 +20,6 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
     if (!video || !audio) return;
 
     const playAudio = () => {
-      audio.currentTime = video.currentTime;
       audio.play().catch(() => {
         const unlockAudio = () => {
           // Remove listeners immediately
@@ -29,7 +28,6 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
 
           // Only play if video is currently active
           if (!video.paused) {
-            audio.currentTime = video.currentTime;
             audio.play().catch(console.error);
           }
         };
@@ -40,11 +38,6 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
 
     const handleTimeUpdate = () => {
       onTimeUpdate(video.currentTime);
-      
-      // Sync audio with video if they drift
-      if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
-        audio.currentTime = video.currentTime;
-      }
     };
 
     const handlePlay = (e: Event) => {
