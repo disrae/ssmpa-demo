@@ -32,7 +32,7 @@ export const curriculumModules: Module[] = [
     id: 'module-1',
     title: 'Introduction to Slaughter Licensing & Safety',
     description: 'Understanding BC Meat Inspection Program requirements and personal responsibilities',
-    icon: '📺',
+    icon: '1.',
     learningObjectives: [
       'Understand provincial licensing structure',
       'Identify personal legal responsibilities',
@@ -40,138 +40,36 @@ export const curriculumModules: Module[] = [
     ],
     lessons: [
       {
-        id: 'module1-intro',
-        title: 'Welcome & Overview',
-        description: 'Introduction to the SSMPA slaughter licensing program',
-        duration: 180, // 3:00
-        videoSrc: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Placeholder video
-        questions: [
-          {
-            id: 'q1-1',
-            time: 5,
-            type: 'multiple-choice',
-            question: 'What is the primary purpose of Class D licensing?',
-            options: [
-              'Commercial meat processing operations',
-              'Farmgate direct sales to consumers',
-              'Restaurant and retail operations',
-              'Export certification requirements'
-            ],
-            correctAnswer: 1,
-            explanation: 'Class D licenses allow farmers to sell meat directly to consumers at farmgate, supporting local food systems.',
-            wrongAnswerHints: [
-              'Think about the scale and direct-to-consumer nature of Class D operations.',
-              '', // Correct answer gets no hint
-              'Consider who benefits most from Class D licensing - is it food service businesses?',
-              'Class D is about local sales, not international trade requirements.'
-            ]
-          },
-          {
-            id: 'q1-2',
-            time: 10,
-            type: 'true-false',
-            question: 'Personal responsibility for food safety begins at the farm level.',
-            correctAnswer: true,
-            explanation: 'Every person involved in meat production shares responsibility for food safety from farm to table.',
-            wrongAnswerHints: 'Consider where meat production begins - does food safety responsibility start later in the process?'
-          },
-          {
-            id: 'q1-3',
-            time: 15,
-            type: 'multiple-choice',
-            question: 'Which of the following is NOT a Class D licensing requirement?',
-            options: [
-              'Facility inspection and approval',
-              'Personal training and certification',
-              'Large-scale commercial processing capacity',
-              'Compliance with food safety standards'
-            ],
-            correctAnswer: 2,
-            explanation: 'Class D licenses are for small-scale farmgate operations, not large commercial processing facilities.',
-            wrongAnswerHints: [
-              'Facility inspection is indeed required for Class D licensing.',
-              'Personal training and certification are essential requirements.',
-              '', // Correct answer gets no hint
-              'Food safety compliance is mandatory for all meat processing operations.'
-            ]
-          },
-          {
-            id: 'q1-4',
-            time: 20,
-            type: 'true-false',
-            question: 'Farmers must maintain detailed records of all slaughter activities.',
-            correctAnswer: true,
-            explanation: 'Record-keeping is essential for regulatory compliance and food safety traceability.',
-            wrongAnswerHints: 'Think about regulatory requirements - what documentation is typically needed for compliance?'
-          },
-          {
-            id: 'q1-5',
-            time: 25,
-            type: 'multiple-choice',
-            question: 'What is the maximum number of animals that can be slaughtered under a Class D license?',
-            options: [
-              '50 animals per year',
-              '200 animals per year',
-              '500 animals per year',
-              'No annual limit'
-            ],
-            correctAnswer: 3,
-            explanation: 'Class D licenses have no annual limit on animal numbers, though practical capacity varies by operation.',
-            wrongAnswerHints: [
-              'Consider that Class D operations can be quite small - is 50 the right limit?',
-              'Think about larger farm operations - might they need more capacity?',
-              'Small commercial operations might have this limit, but what about Class D?',
-              '' // Correct answer gets no hint
-            ]
-          }
-        ]
+        id: 'module1-bc-program',
+        title: 'BC Meat Inspection Program Overview',
+        description: 'Understanding the provincial meat inspection framework and requirements',
+        duration: 600, // 10:00
+        videoSrc: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        questions: []
       },
       {
-        id: 'module1-regulatory',
-        title: 'Regulatory Framework',
-        description: 'BC Meat Inspection Program overview and requirements',
-        duration: 330, // 5:30
-        videoSrc: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Placeholder video
-        questions: [
-          {
-            id: 'q2-1',
-            time: 45,
-            type: 'multiple-choice',
-            question: 'Which government body oversees meat inspection in BC?',
-            options: [
-              'BC Ministry of Agriculture',
-              'Canadian Food Inspection Agency (CFIA)',
-              'BC Meat Inspection Program',
-              'Health Canada'
-            ],
-            correctAnswer: 2,
-            explanation: 'The BC Meat Inspection Program, administered by the Ministry of Agriculture, regulates slaughter facilities in British Columbia.',
-            wrongAnswerHints: [
-              'The Ministry of Agriculture oversees many agricultural programs, but is meat inspection their direct responsibility?',
-              'CFIA handles federal meat inspection, but what about provincial programs?',
-              '', // Correct answer gets no hint
-              'Health Canada focuses on public health, but meat inspection involves more specific regulatory oversight.'
-            ]
-          }
-        ]
+        id: 'module1-licensing',
+        title: 'Class D vs E Licensing Requirements',
+        description: 'Comparing Class D and Class E licensing structures and eligibility',
+        duration: 600, // 10:00
+        videoSrc: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        questions: []
       },
       {
         id: 'module1-responsibilities',
-        title: 'Personal Responsibilities',
-        description: 'Legal obligations and ethical considerations',
-        duration: 255, // 4:15
+        title: 'Personal Responsibility and Legal Obligations',
+        description: 'Legal obligations and ethical considerations for meat processors',
+        duration: 600, // 10:00
         videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        questions: [
-          {
-            id: 'q3-1',
-            time: 60,
-            type: 'true-false',
-            question: 'Slaughter facility operators are legally responsible for animal welfare during the slaughter process.',
-            correctAnswer: true,
-            explanation: 'Facility operators must ensure humane treatment and proper stunning procedures are followed at all times.',
-            wrongAnswerHints: 'Consider the legal obligations of facility operators - who is responsible for ensuring animal welfare?'
-          }
-        ]
+        questions: []
+      },
+      {
+        id: 'module1-food-safety',
+        title: 'Basic Food Safety Principles',
+        description: 'Fundamental food safety concepts and hazard prevention',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
       }
     ]
   },
@@ -179,7 +77,7 @@ export const curriculumModules: Module[] = [
     id: 'module-2',
     title: 'Facility Design & Equipment',
     description: 'Slaughter area requirements, equipment specifications, and sanitation protocols',
-    icon: '🏭',
+    icon: '2.',
     learningObjectives: [
       'Design compliant slaughter facilities',
       'Select appropriate equipment for species',
@@ -221,7 +119,7 @@ export const curriculumModules: Module[] = [
     id: 'module-3',
     title: 'Pre-Slaughter Management',
     description: 'Animal welfare codes, transport requirements, and ante-mortem inspection',
-    icon: '🐄',
+    icon: '3.',
     learningObjectives: [
       'Assess animal welfare and fitness for slaughter',
       'Implement low-stress handling methods',
@@ -252,7 +150,7 @@ export const curriculumModules: Module[] = [
     id: 'module-4',
     title: 'Humane Slaughter Methods',
     description: 'Stunning methods, stun-to-stick intervals, and insensibility confirmation',
-    icon: '⚡',
+    icon: '4.',
     learningObjectives: [
       'Select appropriate stunning methods for each species',
       'Execute proper stunning procedures',
@@ -294,7 +192,7 @@ export const curriculumModules: Module[] = [
     id: 'module-5',
     title: 'Bleeding & Carcass Processing',
     description: 'Bleeding techniques, carcass splitting, and contamination prevention',
-    icon: '🔪',
+    icon: '5.',
     learningObjectives: [
       'Execute proper bleeding procedures',
       'Perform carcass splitting and trimming',
@@ -334,32 +232,265 @@ export const curriculumModules: Module[] = [
   },
   {
     id: 'module-6',
-    title: 'Food Safety & HACCP',
-    description: 'HACCP principles, temperature control, and regulatory documentation',
-    icon: '🧊',
+    title: 'Post-Mortem Inspection & Chilling',
+    description: 'Post-mortem inspection procedures, specified risk material handling, and carcass chilling requirements',
+    icon: '6.',
     learningObjectives: [
-      'Implement HACCP-based food safety plans',
-      'Maintain proper temperature controls',
-      'Complete required documentation'
+      'Conduct thorough post-mortem inspections',
+      'Handle specified risk materials safely',
+      'Implement proper chilling protocols'
     ],
     lessons: [
       {
-        id: 'module6-haccp',
-        title: 'HACCP Principles',
-        description: 'Hazard Analysis Critical Control Points implementation',
-        duration: 480, // 8:00
+        id: 'module6-post-mortem',
+        title: 'Post-Mortem Inspection Procedures',
+        description: 'Systematic inspection of carcasses and organs for abnormalities',
+        duration: 600, // 10:00
         videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        questions: [
-          {
-            id: 'q8-1',
-            time: 65,
-            type: 'true-false',
-            question: 'HACCP plans must identify potential biological, chemical, and physical hazards.',
-            correctAnswer: true,
-            explanation: 'HACCP requires identification of all three types of hazards: biological (pathogens), chemical (residues), and physical (foreign objects).',
-            wrongAnswerHints: 'HACCP is comprehensive - what types of hazards must be considered in food safety planning?'
-          }
-        ]
+        questions: []
+      },
+      {
+        id: 'module6-risk-materials',
+        title: 'Specified Risk Material Identification',
+        description: 'Identifying and properly handling high-risk tissues',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module6-chilling',
+        title: 'Carcass Chilling Requirements',
+        description: 'Temperature control and chilling protocols for food safety',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module6-quality',
+        title: 'Quality Assessment',
+        description: 'Evaluating carcass quality and grading standards',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      }
+    ]
+  },
+  {
+    id: 'module-7',
+    title: 'Food Safety Plans & Documentation',
+    description: 'Developing comprehensive food safety plans, SOPs, and record-keeping systems',
+    icon: '7.',
+    learningObjectives: [
+      'Create comprehensive food safety plans',
+      'Develop facility-specific SOPs and SSOPs',
+      'Maintain proper documentation for licensing'
+    ],
+    lessons: [
+      {
+        id: 'module7-plans',
+        title: 'Developing Food Safety Plans',
+        description: 'Creating comprehensive plans to identify and control hazards',
+        duration: 1200, // 20:00 (10-20 minutes, using upper bound for text content)
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module7-sops',
+        title: 'Standard Operating Procedures (SOPs)',
+        description: 'Developing facility-specific operating procedures',
+        duration: 1200, // 20:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module7-ssops',
+        title: 'Sanitation Standard Operating Procedures (SSOPs)',
+        description: 'Cleaning and sanitation protocols for food safety',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module7-records',
+        title: 'Record Keeping and Traceability',
+        description: 'Maintaining documentation for regulatory compliance',
+        duration: 1200, // 20:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      }
+    ]
+  },
+  {
+    id: 'module-8',
+    title: 'Species-Specific Applications',
+    description: 'Processing techniques and requirements for different animal species',
+    icon: '8.',
+    learningObjectives: [
+      'Adapt procedures for different species',
+      'Identify species-specific requirements',
+      'Customize operations for target animals'
+    ],
+    lessons: [
+      {
+        id: 'module8-cattle',
+        title: 'Cattle/Bison Processing',
+        description: 'Specialized techniques for cattle and bison slaughter',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module8-pigs',
+        title: 'Pig Processing (Scalding/Dehairing)',
+        description: 'Scalding and dehairing techniques for pigs',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module8-sheep-goat',
+        title: 'Sheep/Goat Processing',
+        description: 'Processing techniques for sheep and goats',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module8-poultry',
+        title: 'Poultry Processing (Scalding/Plucking)',
+        description: 'Scalding and plucking methods for poultry',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module8-rabbit',
+        title: 'Rabbit Processing',
+        description: 'Specialized processing techniques for rabbits',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      }
+    ]
+  },
+  {
+    id: 'module-9',
+    title: 'Regulatory Compliance & Licensing',
+    description: 'Understanding provincial and federal requirements, licensing processes, and compliance',
+    icon: '9.',
+    learningObjectives: [
+      'Navigate licensing application process',
+      'Prepare for regulatory inspections',
+      'Maintain ongoing compliance'
+    ],
+    lessons: [
+      {
+        id: 'module9-provincial-federal',
+        title: 'Provincial vs Federal Requirements',
+        description: 'Understanding different regulatory jurisdictions and requirements',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module9-application',
+        title: 'Licensing Application Process',
+        description: 'Step-by-step guide to obtaining slaughter licenses',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module9-inspection',
+        title: 'Inspection Preparation',
+        description: 'Preparing facilities and operations for regulatory inspections',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module9-compliance',
+        title: 'Ongoing Compliance Requirements',
+        description: 'Maintaining compliance with regulatory standards',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      }
+    ]
+  },
+  {
+    id: 'module-10',
+    title: 'SSMPA Mobile Slaughter Trailer Operation',
+    description: 'Operating mobile slaughter units, licensing requirements, and regulatory compliance',
+    icon: '10.',
+    learningObjectives: [
+      'Navigate licensing application process',
+      'Safely transport and operate mobile slaughter trailers under Federal Transport & MAFF'
+    ],
+    lessons: [
+      {
+        id: 'module10-basic-operation',
+        title: 'Basic Operation: Transport, Hook-up & Setup',
+        description: 'Trailer transport, hook-up procedures, equipment requirements, and basic operations',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-licensing',
+        title: 'Provincial Meat Inspection License',
+        description: 'Class D/E licenses and MAFF requirements for mobile slaughter units',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-farmgate',
+        title: 'Farmgate License & Approved Docking Sites',
+        description: 'Legal requirements for on-farm sales and approved operating locations',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-transport-regulations',
+        title: 'Federal Transport Regulations',
+        description: 'Part XII of Health of Animals Regulations for animal transport and welfare',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-training',
+        title: 'Training & Local Permits',
+        description: 'Operator training requirements and local permitting processes',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-hygiene',
+        title: 'Hygiene, Sanitation & Inspections',
+        description: 'Cleaning protocols, sanitation procedures, and compliance requirements',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-traceability',
+        title: 'Traceability & Biosecurity',
+        description: 'Modern protocols for food traceability and biosecurity measures',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
+      },
+      {
+        id: 'module10-towing',
+        title: 'Trailer Towing & Animal Transport',
+        description: 'Towing requirements and animal transport regulations',
+        duration: 600, // 10:00
+        videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        questions: []
       }
     ]
   }

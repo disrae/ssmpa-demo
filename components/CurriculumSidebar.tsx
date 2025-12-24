@@ -43,7 +43,7 @@ export function CurriculumSidebar({ isOpen, onClose }: CurriculumSidebarProps) {
               <div key={module.id} className="border border-gray-200 rounded-lg">
                 <div className="p-3 bg-gray-50 border-b border-gray-200">
                   <div className="flex items-center space-x-2">
-                    <span className="text-lg">{module.icon}</span>
+                    <span className="text-lg font-bold text-gray-800">{module.icon}</span>
                     <h3 className="font-semibold text-gray-900">{module.title}</h3>
                   </div>
                   <p className="text-sm text-gray-600 mt-1">{module.description}</p>

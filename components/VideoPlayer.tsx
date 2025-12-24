@@ -22,10 +22,7 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
     const playAudio = () => {
       audio.currentTime = video.currentTime;
       audio.play().catch(() => {
-        console.log('Audio play blocked - waiting for user interaction');
         const unlockAudio = () => {
-          console.log('Interaction detected - unlocking audio');
-          
           // Remove listeners immediately
           document.removeEventListener('click', unlockAudio);
           document.removeEventListener('keydown', unlockAudio);
