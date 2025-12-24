@@ -9,14 +9,15 @@ import { CurriculumSidebar } from '@/components/CurriculumSidebar';
 
 export default function DemoPage() {
   const [currentTime, setCurrentTime] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [seekTo, setSeekTo] = useState<number | undefined>(undefined);
   const [feedback, setFeedback] = useState<{isCorrect: boolean; message: string} | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
-  const [lastPausePoint, setLastPausePoint] = useState(0);
   const lastProcessedSecond = useRef<number>(-1);
+  const previousTime = useRef<number>(0);
 
   const currentLesson = getCurrentLesson();
 
@@ -33,8 +34,8 @@ export default function DemoPage() {
   useEffect(() => {
     const currentSecond = Math.floor(currentTime);
 
-    // Only process if we haven't already processed this second
-    if (currentSecond !== lastProcessedSecond.current) {
+    // Only process if we haven't already processed this second and not seeking backwards
+    if (currentSecond !== lastProcessedSecond.current && currentTime >= previousTime.current) {
       lastProcessedSecond.current = currentSecond;
 
       const questionAtSecond = questionsBySecond[currentSecond];
@@ -46,6 +47,9 @@ export default function DemoPage() {
         setShowQuestion(true);
       }
     }
+
+    // Update previous time for next comparison
+    previousTime.current = currentTime;
   }, [currentTime, questionsBySecond, showQuestion]);
 
   // Clear seekTo after it's been used
@@ -99,6 +103,11 @@ export default function DemoPage() {
   };
 
 
+  const handleStartLesson = () => {
+    setHasStarted(true);
+    setIsPlaying(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 flex">
       {/* Curriculum Sidebar Toggle */}
@@ -111,14 +120,28 @@ export default function DemoPage() {
 
       {/* Main Video Area */}
       <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-4xl">
-        <VideoPlayer
-          videoSrc={currentLesson.videoSrc}
-          onTimeUpdate={setCurrentTime}
-          isPlaying={isPlaying}
-          questionActive={showQuestion}
-          seekTo={seekTo}
-        />
+        <div className="w-full max-w-4xl relative">
+          <VideoPlayer
+            videoSrc={currentLesson.videoSrc}
+            onTimeUpdate={setCurrentTime}
+            isPlaying={isPlaying}
+            questionActive={showQuestion}
+            seekTo={seekTo}
+          />
+
+          {!hasStarted && (
+            <div className="absolute inset-0 flex items-center justify-center  z-10">
+              <button
+                onClick={handleStartLesson}
+                className="bg-blue-900 hover:bg-blue-800 text-white text-xl font-bold py-4 px-8 rounded-full shadow-2xl transform transition hover:scale-105 flex items-center gap-3"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-8 h-8">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653Z" />
+                </svg>
+                Start Lesson
+              </button>
+            </div>
+          )}
 
           {/* Lesson Info */}
           <div className="mt-4 text-white">
