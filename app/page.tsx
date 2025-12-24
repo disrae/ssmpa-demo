@@ -111,9 +111,9 @@ export default function DemoPage() {
       {/* Curriculum Sidebar Toggle */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="fixed top-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        className="fixed top-4 right-4 z-50 bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors"
       >
-        📚 Curriculum
+        Open Curriculum
       </button>
 
       {/* Main Video Area */}

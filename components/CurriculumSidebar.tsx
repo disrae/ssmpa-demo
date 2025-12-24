@@ -12,15 +12,16 @@ export function CurriculumSidebar({ isOpen, onClose }: CurriculumSidebarProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-40 flex">
+    <>
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50"
+        className="fixed inset-0 bg-black/70 z-40"
         onClick={onClose}
       />
 
       {/* Sidebar */}
-      <div className="relative ml-auto w-80 max-w-[90vw] bg-white h-full overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex">
+        <div className="relative ml-auto w-80 max-w-[90vw] bg-white h-full overflow-y-auto">
         <div className="p-4 border-b">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-bold text-gray-900">Curriculum</h2>
@@ -58,7 +59,7 @@ export function CurriculumSidebar({ isOpen, onClose }: CurriculumSidebarProps) {
                       )}
                     >
                       <div className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-2 shrink-0" />
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900 text-sm">
                             {lesson.title}
@@ -94,5 +95,6 @@ export function CurriculumSidebar({ isOpen, onClose }: CurriculumSidebarProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
