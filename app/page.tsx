@@ -131,9 +131,6 @@ export default function DemoPage() {
           <div className="mt-4 text-white">
             <h1 className="text-2xl font-bold">{currentLesson.title}</h1>
             <p className="text-gray-300">{currentLesson.description}</p>
-            <p className="text-sm text-gray-400 mt-2">
-              Time: {Math.floor(currentTime / 60)}:{(currentTime % 60).toString().padStart(2, '0')}
-            </p>
           </div>
         </div>
       </div>
