@@ -1,0 +1,1 @@
+We are using https://next-video.dev/docs and mux https://www.mux.com/docs/frameworks/next-js
