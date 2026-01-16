@@ -56,10 +56,10 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
   }, [seekTo]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-black/90 aspect-video">
       <video
         ref={videoRef}
-        className="w-full rounded-lg shadow-lg"
+        className="w-full h-full md:rounded-lg shadow-lg"
         controls // Always show controls for demo
       >
         <source src={videoSrc} type="video/mp4" />

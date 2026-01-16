@@ -39,18 +39,18 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full mx-4 border border-gray-200 relative">
+      <div className="bg-surface rounded-lg shadow-2xl p-6 max-w-md w-full mx-4 border border-border relative">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Quick Check</h2>
+          <h2 className="text-xl font-bold text-foreground">Quick Check</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-muted-foreground hover:text-foreground"
           >
             ✕
           </button>
         </div>
 
-        <p className="text-gray-700 mb-6">{question.question}</p>
+        <p className="text-foreground mb-6">{question.question}</p>
 
         {feedback && feedback.isCorrect ? (
           // Show success feedback and continue button
@@ -61,7 +61,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                 <span className="font-medium text-green-800">Correct!</span>
               </div>
               <div className="px-4 py-2 rounded mb-6 bg-green-50 border border-green-200">
-                <p className="text-gray-700">{feedback.message}</p>
+                <p className="text-foreground">{feedback.message}</p>
               </div>
             </div>
             <div className="mt-6">
@@ -83,7 +83,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                   <span className="font-medium text-red-800">Incorrect - Try Again</span>
                 </div>
                 <div className="px-4 py-2 rounded mb-6 bg-red-50 border border-red-200">
-                <p className="text-gray-700">{feedback.message}</p>
+                <p className="text-foreground">{feedback.message}</p>
                 </div>
               </div>
             )}
@@ -100,7 +100,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                         className="text-blue-600"
                         required
                       />
-                      <span className="text-gray-700">{option}</span>
+                      <span className="text-foreground">{option}</span>
                     </label>
                   ))}
                 </div>
@@ -116,7 +116,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                       className="text-blue-600"
                       required
                     />
-                    <span className="text-gray-700">True</span>
+                    <span className="text-foreground">True</span>
                   </label>
                   <label className="flex items-center space-x-3">
                     <input
@@ -126,7 +126,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                       className="text-blue-600"
                       required
                     />
-                    <span className="text-gray-700">False</span>
+                    <span className="text-foreground">False</span>
                   </label>
                 </div>
               )}
@@ -144,14 +144,14 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
               <div className="mt-6 flex flex-col space-y-3">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                  className="w-full bg-secondary text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
                 >
                   Submit Answer
                 </button>
                 <button
                   type="button"
                   onClick={onWatchAgain}
-                  className="w-full px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors border border-gray-200 rounded-md"
+                  className="w-full px-4 py-2 text-foreground hover:text-foreground hover:bg-surface-secondary transition-colors border border-border rounded-md"
                 >
                   Watch Again
                 </button>

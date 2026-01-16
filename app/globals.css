@@ -1,26 +1,168 @@
 @import "tailwindcss";
 
+/* Force light mode */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root {
+  /* Neutral color scale based on your cream background */
+  --neutral-50: #fefefe;
+  --neutral-100: #fefdfb;
+  --neutral-200: #fdfbf7;
+  --neutral-300: #faf7f0;
+  --neutral-400: #f2eee0;  /* Your cream color */
+  --neutral-500: #e8ddc0;
+  --neutral-600: #d8c8a0;
+  --neutral-700: #c8b380;
+  --neutral-800: #a89060;
+  --neutral-900: #887040;
+
+  /* Base colors - semantic foundation */
+  --background: var(--neutral-400);  /* Your cream background */
+  --foreground: #1a1a1a;  /* Dark text for contrast */
+  --muted: #6b6b5a;  /* Muted based on cream */
+  --muted-foreground: #8b8b7a;
+
+  /* Surface colors - for cards, containers */
+  --surface: var(--neutral-50);  /* Slightly lighter than background */
+  --surface-secondary: var(--neutral-200);
+
+  /* Border colors */
+  --border: var(--neutral-300);
+  --border-secondary: var(--neutral-200);
+
+  /* Primary - Main brand color, CTAs, links */
+  --color-primary-50: #fef7ed;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #fbbf24;
+  --color-primary-500: #f59e0b;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+
+  /* Secondary - Supporting color, less important elements */
+  --color-secondary-50: #f7f9f5;
+  --color-secondary-100: #eff3eb;
+  --color-secondary-200: #dfe8d7;
+  --color-secondary-300: #c8d4b8;
+  --color-secondary-400: #a8be92;
+  --color-secondary-500: #768650;
+  --color-secondary-600: #5a6b40;
+  --color-secondary-700: #4a5733;
+  --color-secondary-800: #3d4629;
+  --color-secondary-900: #333a22;
+
+  /* Accent - Highlights, warnings, special emphasis */
+  --color-accent-50: #fdf8f5;
+  --color-accent-100: #fbede7;
+  --color-accent-200: #f7d9cf;
+  --color-accent-300: #f0b8a6;
+  --color-accent-400: #e58d75;
+  --color-accent-500: #d6674a;
+  --color-accent-600: #c2533c;
+  --color-accent-700: #a04130;
+  --color-accent-800: #8b5235;
+  --color-accent-900: #763f2b;
+
+  /* Status colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Backwards compatibility */
+  --color-primary: var(--color-primary-500);
+  --color-secondary: var(--color-secondary-500);
+  --color-accent: var(--color-accent-800);
 }
 
 @theme inline {
+  /* Primary brand colors */
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+
+  /* Secondary colors */
+  --color-secondary-50: var(--color-secondary-50);
+  --color-secondary-100: var(--color-secondary-100);
+  --color-secondary-200: var(--color-secondary-200);
+  --color-secondary-300: var(--color-secondary-300);
+  --color-secondary-400: var(--color-secondary-400);
+  --color-secondary-500: var(--color-secondary-500);
+  --color-secondary-600: var(--color-secondary-600);
+  --color-secondary-700: var(--color-secondary-700);
+  --color-secondary-800: var(--color-secondary-800);
+  --color-secondary-900: var(--color-secondary-900);
+
+  /* Accent colors */
+  --color-accent-50: var(--color-accent-50);
+  --color-accent-100: var(--color-accent-100);
+  --color-accent-200: var(--color-accent-200);
+  --color-accent-300: var(--color-accent-300);
+  --color-accent-400: var(--color-accent-400);
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-600: var(--color-accent-600);
+  --color-accent-700: var(--color-accent-700);
+  --color-accent-800: var(--color-accent-800);
+  --color-accent-900: var(--color-accent-900);
+
+  /* Neutral color scale */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+
+  /* Semantic colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+
+  /* Status colors */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* Backwards compatibility */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+
+  /* Fonts */
+  --font-sans: var(--font-crimson-text);
+  --font-mono: var(--font-roboto-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Dark mode disabled - app uses light mode only */
 
 body {
-  background: var(--background);
+  background: #f2eee0 !important; /* Force your cream background */
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Times New Roman", serif;
 }
