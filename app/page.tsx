@@ -174,7 +174,7 @@ export default function DemoPage() {
             </div>
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="bg-secondary hover:bg-accent-600 text-foreground px-2 md:px-4 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-2"
+              className="bg-secondary hover:bg-secondary-600 text-foreground px-2 md:px-4 py-2 rounded-lg transition-all cursor-pointer flex items-center gap-2 transform hover:scale-102"
             >
               <List className="w-6 h-6 text-white" />
               <span className="hidden md:inline md:font-semibold text-slate-50">Curriculum</span>
@@ -213,7 +213,7 @@ export default function DemoPage() {
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     <button
                       onClick={handleStartLesson}
-                      className="bg-accent-900 text-foreground text-xl font-bold py-4 px-8 rounded-full shadow-2xl transform transition hover:scale-105 flex items-center gap-3 cursor-pointer"
+                      className="bg-accent-800 hover:bg-accent-900 text-foreground text-xl font-bold py-4 px-8 rounded-full shadow-2xl transform transition-all hover:scale-102 flex items-center gap-3 cursor-pointer"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653Z" />
@@ -231,7 +231,7 @@ export default function DemoPage() {
                 <button
                   onClick={handlePreviousLesson}
                   disabled={currentLessonIndex <= 0}
-                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 shadow-sm hover:shadow-md"
+                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
                 >
                   <ChevronLeft className="w-6 h-6" />
                   <span className="md:hidden">Previous</span>
@@ -240,7 +240,7 @@ export default function DemoPage() {
                 <button
                   onClick={handleNextLesson}
                   disabled={currentLessonIndex >= allLessons.length - 1}
-                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 shadow-sm hover:shadow-md"
+                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
                 >
                   <span className="md:hidden">Next</span>
                   <span className="hidden md:inline">Next Lesson</span>
