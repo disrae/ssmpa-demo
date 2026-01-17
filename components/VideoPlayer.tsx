@@ -74,7 +74,7 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
   }, [seekTo]);
 
   return (
-    <div className="relative w-full bg-black/90 aspect-video">
+    <div className="relative w-full bg-black/90 aspect-video md:rounded-lg">
       <video
         ref={videoRef}
         className="w-full h-full md:rounded-lg shadow-lg"

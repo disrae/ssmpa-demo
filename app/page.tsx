@@ -230,7 +230,7 @@ export default function DemoPage() {
               {/* Lesson Progress */}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between items-center p-4 md:py-8">
+              <div className="flex justify-between items-center p-4 md:py-8 md:px-0">
                 <button
                   onClick={handlePreviousLesson}
                   disabled={currentLessonIndex <= 0}
