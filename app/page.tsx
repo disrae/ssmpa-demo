@@ -167,7 +167,7 @@ export default function DemoPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="w-full bg-neutral-700 px-2 md:px-6 py-4">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl md:text-2xl font-bold text-foreground">SSMPA Training Material</h1>

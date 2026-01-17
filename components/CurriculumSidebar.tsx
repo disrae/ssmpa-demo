@@ -28,7 +28,7 @@ export function CurriculumSidebar({ isOpen, onClose, onLessonSelect }: Curriculu
             <h2 className="text-lg font-bold text-foreground">Curriculum</h2>
             <button
               onClick={onClose}
-              className="text-muted-foreground hover:text-foreground"
+              className="px-4 py-2 rounded font-bold text-muted-foreground hover:text-foreground cursor-pointer"
             >
               ✕
             </button>
