@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Question } from '@/lib/types';
-import { getCurrentLesson, getLessonById, getAllLessons, VideoLesson } from '@/lib/demo-data';
+import { getCurrentLesson, getLessonById, getTurkeyLessons, VideoLesson } from '@/lib/demo-data';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { QuestionOverlay } from '@/components/QuestionOverlay';
 import { CurriculumSidebar } from '@/components/CurriculumSidebar';
@@ -31,8 +31,8 @@ export default function DemoPage() {
   }, [currentLesson]);
 
   // Lesson navigation functions
-  const allLessons = getAllLessons();
-  const currentLessonIndex = allLessons.findIndex(lesson => lesson.id === currentLesson.id);
+  const turkeyLessons = getTurkeyLessons();
+  const currentLessonIndex = turkeyLessons.findIndex(lesson => lesson.id === currentLesson.id);
 
   const handleLessonSelect = (lessonId: string) => {
     console.log('handleLessonSelect called with:', lessonId);
@@ -56,15 +56,15 @@ export default function DemoPage() {
 
   const handleNextLesson = () => {
     const nextIndex = currentLessonIndex + 1;
-    if (nextIndex < allLessons.length) {
-      handleLessonSelect(allLessons[nextIndex].id);
+    if (nextIndex < turkeyLessons.length) {
+      handleLessonSelect(turkeyLessons[nextIndex].id);
     }
   };
 
   const handlePreviousLesson = () => {
     const prevIndex = currentLessonIndex - 1;
     if (prevIndex >= 0) {
-      handleLessonSelect(allLessons[prevIndex].id);
+      handleLessonSelect(turkeyLessons[prevIndex].id);
     }
   };
 
@@ -170,7 +170,7 @@ export default function DemoPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl md:text-2xl font-bold text-foreground">SSMPA Training Material</h1>
+              <h1 className="text-lg md:text-2xl font-bold text-foreground">SSMPA Training Material</h1>
             </div>
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -184,7 +184,7 @@ export default function DemoPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-1 px-0 md:px-6 pt-0 md:pt-8 pb-20 md:pb-0">
+      <div className="flex flex-1 px-0 md:px-6 pt-0 md:pt-8 pb-8 md:pb-0">
         <div className="flex-1">
 
           {/* Main Video Area */}
@@ -213,12 +213,12 @@ export default function DemoPage() {
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     <button
                       onClick={handleStartLesson}
-                      className="bg-accent-800 hover:bg-accent-900 text-foreground text-xl font-bold py-4 px-8 rounded-full shadow-2xl transform transition-all hover:scale-102 flex items-center gap-3 cursor-pointer"
+                      className="bg-accent-800 hover:bg-accent-900 text-foreground text-lg md:text-xl font-bold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-2xl transform transition-all hover:scale-102 flex items-center gap-2 md:gap-3 cursor-pointer"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-8 h-8">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6 md:w-8 md:h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653Z" />
                       </svg>
-                      <p className="text-2xl font-bold text-slate-100">Start Lesson</p>
+                      <p className="text-lg md:text-2xl font-bold text-slate-100">Start Lesson</p>
                     </button>
                   </div>
                 )}
@@ -227,22 +227,20 @@ export default function DemoPage() {
               {/* Lesson Progress */}
 
               {/* Navigation Buttons */}
-              <div className="fixed md:relative bottom-0 md:bottom-auto left-0 right-0 md:left-auto md:right-auto flex justify-between items-center px-4 py-4 md:mt-6 md:pt-4 md:px-0  bg-background/95 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none z-10">
+              <div className="flex justify-between items-center px-4 py-4 mt-6 pt-4">
                 <button
                   onClick={handlePreviousLesson}
                   disabled={currentLessonIndex <= 0}
-                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
+                  className="px-4 md:px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
                 >
                   <ChevronLeft className="w-6 h-6" />
-                  <span className="md:hidden">Previous</span>
                   <span className="hidden md:inline">Previous Lesson</span>
                 </button>
                 <button
                   onClick={handleNextLesson}
-                  disabled={currentLessonIndex >= allLessons.length - 1}
-                  className="px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
+                  disabled={currentLessonIndex >= turkeyLessons.length - 1}
+                  className="px-4 md:px-6 py-3 bg-secondary text-gray-200 font-semibold tracking-wide rounded-lg cursor-pointer hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
                 >
-                  <span className="md:hidden">Next</span>
                   <span className="hidden md:inline">Next Lesson</span>
                   <ChevronRight className="w-6 h-6" />
                 </button>

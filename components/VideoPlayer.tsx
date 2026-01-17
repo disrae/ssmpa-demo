@@ -37,6 +37,24 @@ export function VideoPlayer({ videoSrc, onTimeUpdate, isPlaying, questionActive 
     };
   }, [onTimeUpdate, questionActive]);
 
+  // Handle exiting fullscreen when a question becomes active
+  useEffect(() => {
+    if (questionActive) {
+      const video = videoRef.current;
+      
+      // Standard Fullscreen API
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => console.error('Error exiting fullscreen:', err));
+      } 
+      // iOS/Safari specific
+      else if (video && 'webkitExitFullscreen' in video) {
+        // Check if we are in fullscreen (this is a bit heuristic for iOS as it doesn't always expose state nicely)
+        // But calling exitFullscreen shouldn't hurt if not in fullscreen
+        (video as HTMLVideoElement & { webkitExitFullscreen: () => void }).webkitExitFullscreen();
+      }
+    }
+  }, [questionActive]);
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;

@@ -115,15 +115,15 @@ export const curriculumModules: Module[] = [
         duration: 180, // Based on transcript timing
         videoSrc: 'https://stream.mux.com/GCXxvCf5WuO01VtiRlGjuXQgRmY9TnArm6EeO800UJtY8.m3u8',
         questions: [
-          // {
-          //   id: 'handling-1',
-          //   time: 30,
-          //   type: 'true-false',
-          //   question: 'Turkeys should be overcrowded in transport trailers to maximize efficiency.',
-          //   correctAnswer: false,
-          //   explanation: 'Overcrowding increases stress, injury risk, and product quality issues. Use compartments and avoid piling.',
-          //   wrongAnswerHints: 'Consider how overcrowding affects animal welfare and final product quality.'
-          // },
+          {
+            id: 'handling-1',
+            time: 2,
+            type: 'true-false',
+            question: 'Turkeys should be overcrowded in transport trailers to maximize efficiency.',
+            correctAnswer: false,
+            explanation: 'Overcrowding increases stress, injury risk, and product quality issues. Use compartments and avoid piling.',
+            wrongAnswerHints: 'Consider how overcrowding affects animal welfare and final product quality.'
+          },
           // {
           //   id: 'handling-2',
           //   time: 75,
@@ -467,6 +467,11 @@ export const getCurrentLesson = (): VideoLesson => {
 // Helper function to get all lessons for navigation
 export const getAllLessons = (): VideoLesson[] => {
   return curriculumModules.flatMap(module => module.lessons);
+};
+
+// Helper function to get turkey lessons only (for demo navigation)
+export const getTurkeyLessons = (): VideoLesson[] => {
+  return curriculumModules[3].lessons; // Turkey module is at index 3
 };
 
 // Helper function to get module by ID
