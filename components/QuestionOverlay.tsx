@@ -71,7 +71,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
           <h2 className="text-xl font-bold text-foreground">Quick Check</h2>
           <button
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground border rounded px-3 py-2"
           >
             ✕
           </button>
@@ -94,7 +94,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
             <div className="mt-6">
               <button
                 onClick={onClose}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                className="w-full bg-secondary text-white py-3 px-4 rounded-md hover:bg-secondary-600 hover:scale-102 transition-all font-medium transform"
               >
                 Continue
               </button>
@@ -200,14 +200,14 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
               <div className="mt-6 flex flex-col space-y-3">
                 <button
                   type="submit"
-                  className="w-full bg-secondary text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                  className="w-full bg-secondary text-white py-3 px-4 rounded-md hover:bg-secondary-600 hover:scale-102 transition-all font-medium transform"
                 >
                   Submit Answer
                 </button>
                 <button
                   type="button"
                   onClick={onWatchAgain}
-                  className="w-full px-4 py-2 text-foreground hover:text-foreground hover:bg-surface-secondary transition-colors border border-border rounded-md"
+                  className="w-full px-4 py-2 text-foreground hover:bg-surface-secondary hover:scale-102 transition-all border border-border rounded-md transform"
                 >
                   Watch Again
                 </button>
