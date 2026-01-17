@@ -1,10 +1,10 @@
 export interface Question {
   id: string;
   time: number; // seconds into video
-  type: 'multiple-choice' | 'true-false' | 'short-answer';
+  type: 'multiple-choice' | 'true-false' | 'order';
   question: string;
   options?: string[]; // for multiple choice
-  correctAnswer: number | boolean | string;
+  correctAnswer: number | boolean | number[];
   explanation: string; // feedback text for correct answers
   wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
 }
@@ -115,15 +115,31 @@ export const curriculumModules: Module[] = [
         duration: 180, // Based on transcript timing
         videoSrc: 'https://stream.mux.com/GCXxvCf5WuO01VtiRlGjuXQgRmY9TnArm6EeO800UJtY8.m3u8',
         questions: [
+          // {
+          //   id: 'handling-1',
+          //   time: 2,
+          //   type: 'true-false',
+          //   question: 'Turkeys should be overcrowded in transport trailers to maximize efficiency.',
+          //   correctAnswer: false,
+          //   explanation: 'Overcrowding increases stress, injury risk, and product quality issues. Use compartments and avoid piling.',
+          //   wrongAnswerHints: 'Consider how overcrowding affects animal welfare and final product quality.'
+          // },
           {
-            id: 'handling-1',
+            id: 'handling-sequence',
             time: 2,
-            type: 'true-false',
-            question: 'Turkeys should be overcrowded in transport trailers to maximize efficiency.',
-            correctAnswer: false,
-            explanation: 'Overcrowding increases stress, injury risk, and product quality issues. Use compartments and avoid piling.',
-            wrongAnswerHints: 'Consider how overcrowding affects animal welfare and final product quality.'
-          },
+            type: 'order',
+            question: 'Arrange the steps for humane turkey catching in the correct order:',
+            options: [
+              'Herd turkeys into the alley using hurdles',
+              'Guide into darkened trailer compartments',
+              'Catch bird gently by both feet',
+              'Secure wings to prevent flapping',
+              'Place turkey into the killing cone'
+            ],
+            correctAnswer: [0, 1, 2, 3, 4], 
+            explanation: 'Correct! A calm, dark environment and securing the wings prevents bruising and stress before placing them in the cone.',
+            wrongAnswerHints: 'Remember: Calm the birds first, then catch, then secure.'
+          }
           // {
           //   id: 'handling-2',
           //   time: 75,

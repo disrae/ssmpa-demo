@@ -4,10 +4,10 @@ export type { Module } from './demo-data';
 export interface Question {
   id: string;
   time: number; // seconds into video
-  type: 'multiple-choice' | 'true-false' | 'short-answer' | 'order';
+  type: 'multiple-choice' | 'true-false' | 'order';
   question: string;
-  options?: string[]; // for multiple choice or items to order
-  correctAnswer: number | boolean | string | string[];
+  options?: string[]; // for multiple choice or order items
+  correctAnswer: number | boolean | number[];
   explanation: string; // feedback text for correct answers
   wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
 }

@@ -99,7 +99,7 @@ export default function DemoPage() {
     }
   }, [seekTo]);
 
-  const handleAnswer = (answer: number | boolean | string) => {
+  const handleAnswer = (answer: number | boolean | string | number[]) => {
     if (!currentQuestion) return;
 
     // Validate the answer
@@ -110,10 +110,13 @@ export default function DemoPage() {
     } else if (currentQuestion!.type === 'true-false') {
       console.log('Answer:', answer, 'Correct:', currentQuestion!.correctAnswer);
       isCorrect = answer === currentQuestion!.correctAnswer;
-    } else if (currentQuestion!.type === 'short-answer') {
-      isCorrect = typeof answer === 'string' && typeof currentQuestion!.correctAnswer === 'string'
-        ? answer.toLowerCase().trim() === currentQuestion!.correctAnswer.toLowerCase().trim()
-        : false;
+    } else if (currentQuestion!.type === 'order') {
+      const correctOrder = currentQuestion!.correctAnswer as number[];
+      const userOrder = answer as number[];
+      
+      // Check if every index matches the correct position
+      isCorrect = userOrder.length === correctOrder.length && 
+        userOrder.every((val, index) => val === correctOrder[index]);
     }
 
     // Determine feedback message: use hint for wrong answers, explanation for correct
