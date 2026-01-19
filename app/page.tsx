@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Question } from '@/lib/types';
-import { getCurrentLesson, getLessonById, getTurkeyLessons, VideoLesson } from '@/lib/demo-data';
+import { getCurrentLesson, getLessonById, getTurkeyLessons, VideoLesson, Question } from '@/lib/questions';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { QuestionOverlay } from '@/components/QuestionOverlay';
 import { CurriculumSidebar } from '@/components/CurriculumSidebar';
@@ -17,15 +16,16 @@ export default function DemoPage() {
   const [seekTo, setSeekTo] = useState<number | undefined>(undefined);
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; message: string; } | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [currentLesson, setCurrentLesson] = useState<VideoLesson>(getCurrentLesson());
   const lastProcessedSecond = useRef<number>(-1);
   const previousTime = useRef<number>(0);
 
   // Create questions indexed by second for efficient lookup
   const questionsBySecond = useMemo(() => {
-    const questions: Record<number, Question> = {};
-    currentLesson.questions.forEach(question => {
-      questions[Math.floor(question.time)] = question;
+    const questions: Record<number, Question[]> = {};
+    currentLesson.questions.forEach(questionGroup => {
+      questions[Math.floor(questionGroup.time)] = questionGroup.questions;
     });
     return questions;
   }, [currentLesson]);
@@ -46,6 +46,7 @@ export default function DemoPage() {
       setShowQuestion(false);
       setFeedback(null);
       setCurrentQuestion(null);
+      setCurrentQuestionIndex(0);
       setSeekTo(undefined);
       lastProcessedSecond.current = -1;
       previousTime.current = 0;
@@ -76,11 +77,11 @@ export default function DemoPage() {
     if (currentSecond !== lastProcessedSecond.current && currentTime >= previousTime.current) {
       lastProcessedSecond.current = currentSecond;
 
-      const questionAtSecond = questionsBySecond[currentSecond];
+      const questionsAtSecond = questionsBySecond[currentSecond];
 
-      if (questionAtSecond && !showQuestion) {
-        // eslint-disable-next-line
-        setCurrentQuestion(questionAtSecond);
+      if (questionsAtSecond && questionsAtSecond.length > 0 && !showQuestion) {
+        setCurrentQuestion(questionsAtSecond[0]); // Start with first question in the group
+        setCurrentQuestionIndex(0);
         setIsPlaying(false);
         setShowQuestion(true);
       }
@@ -145,12 +146,25 @@ export default function DemoPage() {
   };
 
   const handleContinue = () => {
-    // Clear feedback and close modal
-    setFeedback(null);
-    setShowQuestion(false);
+    if (!currentQuestion) return;
 
-    // Resume playing
-    setIsPlaying(true);
+    // Check if there are more questions at this timestamp
+    const currentSecond = Math.floor(currentTime);
+    const questionsAtSecond = questionsBySecond[currentSecond];
+
+    if (questionsAtSecond && currentQuestionIndex < questionsAtSecond.length - 1) {
+      // Show next question in the group
+      const nextQuestionIndex = currentQuestionIndex + 1;
+      setCurrentQuestion(questionsAtSecond[nextQuestionIndex]);
+      setCurrentQuestionIndex(nextQuestionIndex);
+      setFeedback(null);
+      // Keep showQuestion true to show the next question
+    } else {
+      // No more questions at this timestamp, resume playing
+      setFeedback(null);
+      setShowQuestion(false);
+      setIsPlaying(true);
+    }
   };
 
   const handleWatchAgain = () => {

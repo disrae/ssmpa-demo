@@ -1,6 +1,6 @@
 'use client';
 
-import { curriculumModules } from '@/lib/demo-data';
+import { curriculumModules } from '@/lib/questions';
 import { ChevronLeft, ChevronDown, ChevronRight, Database } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -75,7 +75,7 @@ export default function QuestionDataPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">{lesson.title}</h3>
-                    <p className="text-sm font-semibold text-gray-900">{lesson.questions.length} questions • {Math.floor(lesson.duration / 60)} min</p>
+                    <p className="text-sm font-semibold text-gray-900">{lesson.questions.reduce((total, group) => total + group.questions.length, 0)} questions • {Math.floor(lesson.duration / 60)} min</p>
                   </div>
                 </div>
                 {expandedLessons.has(lesson.id) ? (
@@ -89,19 +89,20 @@ export default function QuestionDataPage() {
               {expandedLessons.has(lesson.id) && (
                 <div className="border-t border-border">
                   <div className="p-6 space-y-4">
-                    {lesson.questions.map((question, qIndex) => (
-                      <div key={question.id} className="border border-border rounded-lg p-4">
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="px-2 py-1 bg-primary/10 text-xs font-black rounded text-gray-900">
-                              {getQuestionTypeLabel(question.type)}
-                            </span>
-                <span className="text-sm font-semibold text-gray-900">
-                                  {formatTime(question.time)}
-                                </span>
-                              </div>
-                              <span className="text-xs font-bold text-gray-900">#{qIndex + 1}</span>
-                        </div>
+                    {lesson.questions.map((questionGroup, groupIndex) =>
+                      questionGroup.questions.map((question, qIndex) => (
+                        <div key={question.id} className="border border-border rounded-lg p-4">
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <span className="px-2 py-1 bg-primary/10 text-xs font-black rounded text-gray-900">
+                                {getQuestionTypeLabel(question.type)}
+                              </span>
+                              <span className="text-sm font-semibold text-gray-900">
+                                {formatTime(questionGroup.time)}{questionGroup.questions.length > 1 ? ` (${qIndex + 1}/${questionGroup.questions.length})` : ''}
+                              </span>
+                            </div>
+                            <span className="text-xs font-bold text-gray-900">#{groupIndex + 1}.{qIndex + 1}</span>
+                          </div>
 
                         <div className="space-y-3">
                           <div className="font-bold text-gray-900">{question.question}</div>
@@ -214,7 +215,8 @@ export default function QuestionDataPage() {
                           )}
                         </div>
                       </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 </div>
               )}

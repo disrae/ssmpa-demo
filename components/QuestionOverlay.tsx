@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Question } from '@/lib/types';
+import { Question } from '@/lib/questions';
 import { CheckCircle, XCircle, ChevronUp, ChevronDown } from 'lucide-react';
 import { ThreeDQuestion } from './ThreeDQuestion';
 
@@ -18,6 +18,18 @@ interface QuestionOverlayProps {
 
 export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, feedback }: QuestionOverlayProps) {
   const [currentOrder, setCurrentOrder] = useState<number[]>([]);
+
+  // Handle keyboard events
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   // Initialize order when question changes
   useEffect(() => {

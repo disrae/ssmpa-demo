@@ -1,6 +1,6 @@
 'use client';
 
-import { curriculumModules, VideoLesson } from '@/lib/demo-data';
+import { curriculumModules, VideoLesson } from '@/lib/questions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Database } from 'lucide-react';
@@ -30,7 +30,7 @@ export function CurriculumSidebar({ isOpen, onClose, onLessonSelect }: Curriculu
             <h2 className="text-lg font-bold text-foreground">Curriculum</h2>
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded font-bold text-muted-foreground hover:text-foreground cursor-pointer"
+                className="text-muted-foreground hover:text-foreground border rounded px-3 py-2"
             >
               ✕
             </button>

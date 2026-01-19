@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { TurkeyModel } from './TurkeyModel';
-import { Question } from '@/lib/types';
+import { Question } from '@/lib/questions';
 import * as THREE from 'three';
 
 interface ThreeDQuestionProps {
