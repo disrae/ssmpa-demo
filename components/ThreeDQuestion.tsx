@@ -30,18 +30,11 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
     
     let isCorrect = false;
 
-    // Check multiple zones if they exist
-    if (question.targetZone.zones && question.targetZone.zones.length > 0) {
-      isCorrect = question.targetZone.zones.some(zone => {
-        const target = new THREE.Vector3(zone.x, zone.y, zone.z);
-        return target.distanceTo(selected) <= zone.radius;
-      });
-    } else {
-      // Fallback to single zone
-      const target = new THREE.Vector3(question.targetZone.x, question.targetZone.y, question.targetZone.z);
-      const distance = target.distanceTo(selected);
-      isCorrect = distance <= question.targetZone.radius;
-    }
+    // Check all zones
+    isCorrect = question.targetZone.zones.some(zone => {
+      const target = new THREE.Vector3(zone.x, zone.y, zone.z);
+      return target.distanceTo(selected) <= zone.radius;
+    });
     
     setSubmitted(true);
     onAnswer(isCorrect);
@@ -64,7 +57,7 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
             <TurkeyModel
               onPointSelect={handlePointSelect}
               selectedPoint={selectedPoint}
-              zones={question.targetZone?.zones}
+              zones={question.targetZone?.zones || []}
             />
           </Stage>
           <OrbitControls makeDefault target={[0, 40, 0]} />

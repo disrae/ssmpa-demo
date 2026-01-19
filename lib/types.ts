@@ -14,8 +14,7 @@ export interface Question {
     x: number;
     y: number;
     z: number;
-    radius: number;
-    zones?: Array<{ x: number; y: number; z: number; radius: number }>;
+    zones: Array<{ x: number; y: number; z: number; radius: number }>;
   };
   cameraView?: {
     position: [number, number, number];
