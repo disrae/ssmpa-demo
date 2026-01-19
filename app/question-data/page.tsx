@@ -425,7 +425,7 @@ export default function QuestionDataPage() {
                           <div className="mt-4 flex justify-center">
                             <button
                               onClick={() => handleTryQuestion(question)}
-                              className="flex items-center gap-2 bg-accent-800 hover:bg-accent-900 text-white px-4 py-2 rounded-lg transition-all cursor-pointer transform hover:scale-105 font-medium"
+                              className="flex items-center gap-2 bg-secondary hover:bg-secondary-600 text-white px-4 py-2 rounded-lg transition-all cursor-pointer transform hover:scale-105 font-medium"
                             >
                               <Play className="w-4 h-4" />
                               Try Question
