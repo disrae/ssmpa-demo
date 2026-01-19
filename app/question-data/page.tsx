@@ -301,7 +301,7 @@ export default function QuestionDataPage() {
                             <div className="border-t border-border">
                               <div className="p-4 space-y-4">
                           {questionGroup.questions.map((question, qIndex) => (
-                            <div key={question.id} className={`border border-border rounded-lg p-4 ${qIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                            <div key={question.id} className="border border-gray-300 shadow-sm transition-shadow rounded-lg p-4 bg-white">
                               <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-3">
                                   <span className="px-2 py-1 bg-primary/10 text-xs font-black rounded text-gray-900">
