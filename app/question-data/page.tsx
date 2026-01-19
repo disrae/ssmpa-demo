@@ -48,8 +48,7 @@ export default function QuestionDataPage() {
                 href="/"
                 className="bg-secondary hover:bg-secondary-600 text-foreground px-3 py-2 rounded-lg transition-all cursor-pointer flex items-center gap-2 transform hover:scale-102"
               >
-                <ChevronLeft className="w-5 h-5" />
-                <span className="hidden md:inline font-black text-gray-900">Back to Training</span>
+                <ChevronLeft className="w-6 h-6 text-white" />
               </Link>
               <div>
                 <h1 className="text-lg md:text-2xl font-black text-gray-900">Question Data</h1>
@@ -68,7 +67,7 @@ export default function QuestionDataPage() {
               {/* Lesson Header */}
               <button
                 onClick={() => toggleLesson(lesson.id)}
-                className="w-full p-6 text-left hover:bg-surface-secondary transition-colors flex items-center justify-between"
+                className="w-full p-6 text-left hover:bg-surface-secondary transition-colors cursor-pointer flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">

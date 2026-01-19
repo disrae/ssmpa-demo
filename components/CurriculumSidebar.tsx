@@ -45,7 +45,7 @@ export function CurriculumSidebar({ isOpen, onClose, onLessonSelect }: Curriculu
           <Link
             href="/question-data"
             onClick={onClose}
-              className="w-full bg-accent-800 hover:bg-accent-900 text-white px-4 py-3 rounded-lg font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
+              className="w-full bg-secondary hover:bg-secondary-600 text-white px-4 py-3 rounded-lg font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
           >
             <Database className="w-5 h-5" />
             View Question Data
