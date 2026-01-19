@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Question } from '@/lib/types';
 import { CheckCircle, XCircle, ChevronUp, ChevronDown } from 'lucide-react';
+import { ThreeDQuestion } from './ThreeDQuestion';
 
 interface QuestionOverlayProps {
   question: Question;
@@ -66,7 +67,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-surface rounded-lg shadow-2xl p-6 max-w-md w-full border border-border relative max-h-[90vh] overflow-y-auto">
+      <div className={`bg-surface rounded-lg shadow-2xl p-6 w-full border border-border relative max-h-[90vh] overflow-y-auto ${question.type === '3d-point' ? 'max-w-4xl' : 'max-w-md'}`}>
         <div className="flex justify-between items-start mb-4">
           <h2 className="text-xl font-bold text-foreground">Quick Check</h2>
           <button
@@ -115,8 +116,23 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {question.type === 'multiple-choice' && question.options && (
+            {question.type === '3d-point' ? (
+              <div className="space-y-4">
+                <ThreeDQuestion 
+                  question={question} 
+                  onAnswer={onAnswer} 
+                />
+                <button
+                  type="button"
+                  onClick={onWatchAgain}
+                  className="w-full px-4 py-2 text-foreground hover:bg-surface-secondary hover:scale-102 transition-all border border-border rounded-md transform"
+                >
+                  Watch Again
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {question.type === 'multiple-choice' && question.options && (
                 <div className="space-y-3">
                   {question.options.map((option, index) => (
                     <label key={index} className="flex items-center space-x-3">
@@ -213,6 +229,7 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
                 </button>
               </div>
             </form>
+            )}
           </>
         )}
       </div>

@@ -4,12 +4,23 @@ export type { Module } from './demo-data';
 export interface Question {
   id: string;
   time: number; // seconds into video
-  type: 'multiple-choice' | 'true-false' | 'order';
+  type: 'multiple-choice' | 'true-false' | 'order' | '3d-point';
   question: string;
   options?: string[]; // for multiple choice or order items
   correctAnswer: number | boolean | number[];
   explanation: string; // feedback text for correct answers
   wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
+  targetZone?: {
+    x: number;
+    y: number;
+    z: number;
+    radius: number;
+    zones?: Array<{ x: number; y: number; z: number; radius: number }>;
+  };
+  cameraView?: {
+    position: [number, number, number];
+    target: [number, number, number];
+  };
 }
 
 export interface VideoLesson {

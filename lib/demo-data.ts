@@ -1,12 +1,23 @@
 export interface Question {
   id: string;
   time: number; // seconds into video
-  type: 'multiple-choice' | 'true-false' | 'order';
+  type: 'multiple-choice' | 'true-false' | 'order' | '3d-point';
   question: string;
   options?: string[]; // for multiple choice
   correctAnswer: number | boolean | number[];
   explanation: string; // feedback text for correct answers
   wrongAnswerHints?: string[] | string; // hints for wrong answers - array for multiple choice, string for others
+  targetZone?: {
+    x: number;
+    y: number;
+    z: number;
+    radius: number;
+    zones?: Array<{ x: number; y: number; z: number; radius: number }>;
+  };
+  cameraView?: {
+    position: [number, number, number];
+    target: [number, number, number];
+  };
 }
 
 export interface VideoLesson {
@@ -115,6 +126,24 @@ export const curriculumModules: Module[] = [
         duration: 180, // Based on transcript timing
         videoSrc: 'https://stream.mux.com/GCXxvCf5WuO01VtiRlGjuXQgRmY9TnArm6EeO800UJtY8.m3u8',
         questions: [
+          {
+            id: 'stunning-location',
+            time: 1,
+            type: '3d-point',
+            question: 'Click on the area where you should perform the stick for bleeding (just below the jaw).',
+            correctAnswer: true,
+            explanation: 'Correct! The stick should be performed just below the jaw to sever the carotid arteries and jugular veins.',
+            targetZone: {
+              x: 0, 
+              y: 0, 
+              z: 0, 
+              radius: 0, // Not used for multi-zone
+              zones: [
+                { x: 1.46, y: 60.5, z: 31.04, radius: 3 }, // Right side - moved up
+                { x: -1.43, y: 59.93, z: 31.34, radius: 3 } // Left side
+              ]
+            }
+          }
           // {
           //   id: 'handling-1',
           //   time: 2,
@@ -124,22 +153,22 @@ export const curriculumModules: Module[] = [
           //   explanation: 'Overcrowding increases stress, injury risk, and product quality issues. Use compartments and avoid piling.',
           //   wrongAnswerHints: 'Consider how overcrowding affects animal welfare and final product quality.'
           // },
-          {
-            id: 'handling-sequence',
-            time: 2,
-            type: 'order',
-            question: 'Arrange the steps for humane turkey catching in the correct order:',
-            options: [
-              'Herd turkeys into the alley using hurdles',
-              'Guide into darkened trailer compartments',
-              'Catch bird gently by both feet',
-              'Secure wings to prevent flapping',
-              'Place turkey into the killing cone'
-            ],
-            correctAnswer: [0, 1, 2, 3, 4], 
-            explanation: 'Correct! A calm, dark environment and securing the wings prevents bruising and stress before placing them in the cone.',
-            wrongAnswerHints: 'Remember: Calm the birds first, then catch, then secure.'
-          }
+          // {
+          //   id: 'handling-sequence',
+          //   time: 2,
+          //   type: 'order',
+          //   question: 'Arrange the steps for humane turkey catching in the correct order:',
+          //   options: [
+          //     'Herd turkeys into the alley using hurdles',
+          //     'Guide into darkened trailer compartments',
+          //     'Catch bird gently by both feet',
+          //     'Secure wings to prevent flapping',
+          //     'Place turkey into the killing cone'
+          //   ],
+          //   correctAnswer: [0, 1, 2, 3, 4], 
+          //   explanation: 'Correct! A calm, dark environment and securing the wings prevents bruising and stress before placing them in the cone.',
+          //   wrongAnswerHints: 'Remember: Calm the birds first, then catch, then secure.'
+          // }
           // {
           //   id: 'handling-2',
           //   time: 75,
@@ -198,6 +227,20 @@ export const curriculumModules: Module[] = [
         duration: 180, // Based on transcript timing
         videoSrc: 'https://stream.mux.com/Ai3oErF025rXJ5pEFTG3VO7fiiOwV3VTbyDbKbiv6o700.m3u8',
         questions: [
+          // {
+          //   id: 'stunning-location',
+          //   time: 1, 
+          //   type: '3d-point',
+          //   question: 'Click on the area where you should perform the stick for bleeding (just below the jaw).',
+          //   correctAnswer: true,
+          //   explanation: 'Correct! The stick should be performed just below the jaw to sever the carotid arteries and jugular veins.',
+          //   targetZone: {
+          //     x: 0,
+          //     y: 25,
+          //     z: 10,
+          //     radius: 8
+          //   }
+          // }
           // {
           //   id: 'stunning-1',
           //   time: 20,

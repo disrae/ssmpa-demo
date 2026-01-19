@@ -110,6 +110,8 @@ export default function DemoPage() {
     } else if (currentQuestion!.type === 'true-false') {
       console.log('Answer:', answer, 'Correct:', currentQuestion!.correctAnswer);
       isCorrect = answer === currentQuestion!.correctAnswer;
+    } else if (currentQuestion!.type === '3d-point') {
+      isCorrect = answer === currentQuestion!.correctAnswer;
     } else if (currentQuestion!.type === 'order') {
       const correctOrder = currentQuestion!.correctAnswer as number[];
       const userOrder = answer as number[];
