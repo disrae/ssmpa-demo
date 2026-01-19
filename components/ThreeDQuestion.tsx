@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { TurkeyModel } from './TurkeyModel';
@@ -10,15 +10,24 @@ import * as THREE from 'three';
 interface ThreeDQuestionProps {
   question: Question;
   onAnswer: (answer: boolean) => void; // Returns true if correct, false if incorrect
+  allowRetry?: boolean; // Whether to allow retrying after incorrect answer
 }
 
 
-export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
+export function ThreeDQuestion({ question, onAnswer, allowRetry = false }: ThreeDQuestionProps) {
   const [selectedPoint, setSelectedPoint] = useState<{ x: number; y: number; z: number } | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  // Reset submitted state when allowRetry changes (allows retry after incorrect answer)
+  useEffect(() => {
+    if (allowRetry) {
+      setSubmitted(false);
+      setSelectedPoint(null);
+    }
+  }, [allowRetry]);
+
   const handlePointSelect = (point: { x: number; y: number; z: number }) => {
-    if (submitted) return;
+    if (submitted && !allowRetry) return;
     setSelectedPoint(point);
   };
 
@@ -27,7 +36,7 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
     if (!selectedPoint || !question.targetZone) return;
 
     const selected = new THREE.Vector3(selectedPoint.x, selectedPoint.y, selectedPoint.z);
-    
+
     let isCorrect = false;
 
     // Check all zones
@@ -35,15 +44,19 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
       const target = new THREE.Vector3(zone.x, zone.y, zone.z);
       return target.distanceTo(selected) <= zone.radius;
     });
-    
-    setSubmitted(true);
+
+    // Only set submitted to true if correct or if retries are not allowed
+    if (isCorrect || !allowRetry) {
+      setSubmitted(true);
+    }
     onAnswer(isCorrect);
   };
 
   return (
     <div className="w-full relative bg-slate-100 rounded-lg overflow-hidden border border-border" style={{ height: '500px' }}>
-       {/* 
-          Using key to force re-render if needed. 
+
+       {/*
+          Using key to force re-render if needed.
           Moved the red ball inside TurkeyModel to ensure it uses the same coordinate space.
        */}
        <Canvas shadows camera={{
@@ -67,10 +80,10 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
       <div className="absolute bottom-6 left-0 right-0 flex justify-center p-4 pointer-events-none">
         <button
           onClick={handleSubmit}
-          disabled={!selectedPoint || submitted}
+          disabled={!selectedPoint || (submitted && !allowRetry)}
           className="bg-secondary text-white py-3 px-8 rounded-md hover:bg-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-lg pointer-events-auto transition-all transform hover:scale-105 active:scale-95"
         >
-          Confirm Location
+          {submitted && allowRetry ? 'Try Again' : 'Confirm Location'}
         </button>
       </div>
       

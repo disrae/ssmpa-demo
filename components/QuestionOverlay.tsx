@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Question } from '@/lib/questions';
-import { CheckCircle, XCircle, ChevronUp, ChevronDown } from 'lucide-react';
+import { CheckCircle, XCircle, ChevronUp, ChevronDown, RotateCw, Move, ZoomIn } from 'lucide-react';
 import { ThreeDQuestion } from './ThreeDQuestion';
 
 interface QuestionOverlayProps {
@@ -130,9 +130,46 @@ export function QuestionOverlay({ question, onAnswer, onClose, onWatchAgain, fee
 
             {question.type === '3d-point' ? (
               <div className="space-y-4">
-                <ThreeDQuestion 
-                  question={question} 
-                  onAnswer={onAnswer} 
+                {/* Camera Controls Explanation */}
+                <div className=" text-gray-900 px-3 py-2 rounded-lg text-xs backdrop-blur-sm">
+                  <div className="space-y-1">
+                    {/* Mobile instructions (under md breakpoint) */}
+                    <div className="md:hidden space-y-1">
+                      <div className="flex items-center gap-2">
+                        <RotateCw className="w-4 h-4" />
+                        <span>1 finger drag: Rotate view</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Move className="w-4 h-4" />
+                        <span>2 finger drag: Pan camera</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <ZoomIn className="w-4 h-4" />
+                        <span>Pinch: Zoom in/out</span>
+                      </div>
+                    </div>
+
+                    {/* Desktop instructions (md breakpoint and above) */}
+                    <div className="hidden md:block space-y-1">
+                      <div className="flex items-center gap-2">
+                        <RotateCw className="w-4 h-4" />
+                        <span>Drag: Change camera angle</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <ZoomIn className="w-4 h-4" />
+                        <span>Scroll: Zoom in/out</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Move className="w-4 h-4" />
+                        <span>Hold Shift + drag: Move camera</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ThreeDQuestion
+                  question={question}
+                  onAnswer={onAnswer}
+                  allowRetry={feedback ? !feedback.isCorrect : false}
                 />
                 <button
                   type="button"
