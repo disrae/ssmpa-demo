@@ -11,7 +11,6 @@ export interface Question {
     x: number;
     y: number;
     z: number;
-    radius: number;
     zones?: Array<{ x: number; y: number; z: number; radius: number }>;
   };
   cameraView?: {
@@ -128,22 +127,38 @@ export const curriculumModules: Module[] = [
         questions: [
           {
             id: 'stunning-location',
-            time: 1,
+            time: 0,
             type: '3d-point',
-            question: 'Click on the area where you should perform the stick for bleeding (just below the jaw).',
+            question: 'Click on the area where you should place the stun gun',
             correctAnswer: true,
-            explanation: 'Correct! The stick should be performed just below the jaw to sever the carotid arteries and jugular veins.',
+            explanation: 'Correct! The stun gun should be placed right on the back of the head to ensure proper stunning.',
             targetZone: {
-              x: 0, 
-              y: 0, 
-              z: 0, 
-              radius: 0, // Not used for multi-zone
+              x: 0,
+              y: 0,
+              z: 0,
               zones: [
-                { x: 1.46, y: 60.5, z: 31.04, radius: 3 }, // Right side - moved up
-                { x: -1.43, y: 59.93, z: 31.34, radius: 3 } // Left side
+                { x: -0.06378170048081416, y: 68.8, z: 31.50622732492265, radius: 1.25 }
               ]
             }
-          }
+          },
+          // {
+          //   id: 'bleeding-location',
+          //   time: 1,
+          //   type: '3d-point',
+          //   question: 'Click on the area where you should perform the stick for bleeding (just below the jaw).',
+          //   correctAnswer: true,
+          //   explanation: 'Correct! The stick should be performed just below the jaw to sever the carotid arteries and jugular veins.',
+          //   targetZone: {
+          //     x: 0,
+          //     y: 0,
+          //     z: 0,
+          //     radius: 0, // Not used for multi-zone
+          //     zones: [
+          //       { x: 1.5, y: 60.5, z: 31, radius: 2.5 }, // Right side
+          //       { x: -1.5, y: 60.4, z: 31.3, radius: 2.5 } // Left side
+          //     ]
+          //   }
+          // }
           // {
           //   id: 'handling-1',
           //   time: 2,
@@ -229,11 +244,11 @@ export const curriculumModules: Module[] = [
         questions: [
           // {
           //   id: 'stunning-location',
-          //   time: 1, 
+          //   time: 1,
           //   type: '3d-point',
-          //   question: 'Click on the area where you should perform the stick for bleeding (just below the jaw).',
+          //   question: 'Click on the area where you should place the stun gun',
           //   correctAnswer: true,
-          //   explanation: 'Correct! The stick should be performed just below the jaw to sever the carotid arteries and jugular veins.',
+          //   explanation: 'Correct! The stun gun should be placed right on the back of the head to ensure proper stunning.',
           //   targetZone: {
           //     x: 0,
           //     y: 25,

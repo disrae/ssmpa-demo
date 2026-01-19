@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, Suspense, useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useState, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { TurkeyModel } from './TurkeyModel';
 import { Question } from '@/lib/types';
@@ -12,34 +12,6 @@ interface ThreeDQuestionProps {
   onAnswer: (answer: boolean) => void; // Returns true if correct, false if incorrect
 }
 
-// Component to log camera position and rotation (only on change)
-function CameraLogger() {
-  /* 
-  DISABLED: Camera logging is noisy. Uncomment if you need to debug camera positioning again.
-  const { camera } = useThree();
-  const lastPosition = useRef(new THREE.Vector3());
-  const lastRotation = useRef(new THREE.Euler());
-
-  useFrame(() => {
-    // Only log if position or rotation changed significantly
-    if (camera.position.distanceTo(lastPosition.current) > 0.01 ||
-        Math.abs(camera.rotation.x - lastRotation.current.x) > 0.001 ||
-        Math.abs(camera.rotation.y - lastRotation.current.y) > 0.001 ||
-        Math.abs(camera.rotation.z - lastRotation.current.z) > 0.001) {
-
-      // Round values for cleaner logging
-      const pos = camera.position.toArray().map(v => Math.round(v * 100) / 100);
-      const rot = camera.rotation.toArray().slice(0, 3).map(v => Math.round(v as number * 100) / 100);
-
-      console.log(`Camera State -> Position: [${pos.join(', ')}] | Rotation: [${rot.join(', ')}] | Zoom: ${(camera as THREE.PerspectiveCamera).zoom}`);
-
-      lastPosition.current.copy(camera.position);
-      lastRotation.current.copy(camera.rotation);
-    }
-  });
-  */
-  return null;
-}
 
 export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
   const [selectedPoint, setSelectedPoint] = useState<{ x: number; y: number; z: number } | null>(null);
@@ -89,10 +61,13 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
         <directionalLight position={[10, 10, 5]} intensity={2} />
         <Suspense fallback={null}>
           <Stage environment="city" intensity={1} adjustCamera={false}>
-            <TurkeyModel onPointSelect={handlePointSelect} selectedPoint={selectedPoint} />
+            <TurkeyModel
+              onPointSelect={handlePointSelect}
+              selectedPoint={selectedPoint}
+              zones={question.targetZone?.zones}
+            />
           </Stage>
           <OrbitControls makeDefault target={[0, 40, 0]} />
-          <CameraLogger />
         </Suspense>
       </Canvas>
       

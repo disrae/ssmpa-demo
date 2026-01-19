@@ -8,9 +8,10 @@ import { useEffect, useRef } from 'react';
 interface TurkeyModelProps {
   onPointSelect?: (point: { x: number; y: number; z: number }) => void;
   selectedPoint?: { x: number; y: number; z: number } | null;
+  zones?: Array<{ x: number; y: number; z: number; radius: number }>;
 }
 
-export function TurkeyModel({ onPointSelect, selectedPoint }: TurkeyModelProps) {
+export function TurkeyModel({ onPointSelect, selectedPoint, zones }: TurkeyModelProps) {
   const fbx = useFBX('/models/turkey.fbx');
   const groupRef = useRef<THREE.Group>(null);
 
@@ -51,28 +52,24 @@ export function TurkeyModel({ onPointSelect, selectedPoint }: TurkeyModelProps) 
       {/* Visual Debug: Show the target zones */}
       {/* Set raycast={null} (or a dummy function that returns null/false, effectively) to prevent intercepting clicks */}
       {/* In R3F/Three, standard meshes block raycasts. We can disable it by setting raycast={() => null} */}
-      
-      {/* Right Target Zone */}
-      <mesh position={[1.5, 60.5, 31]} rotation={[0, 0, 0]} raycast={() => null}>
-        <sphereGeometry args={[2.5, 32, 32]} />
-        <meshStandardMaterial 
-          color="#00ff00" 
-          transparent 
-          opacity={0.3} 
-          wireframe
-        />
-      </mesh>
-      
-      {/* Left Target Zone */}
-      <mesh position={[-1.5, 60.4, 31.3]} rotation={[0, 0, 0]} raycast={() => null}>
-        <sphereGeometry args={[2.5, 32, 32]} />
-        <meshStandardMaterial 
-          color="#00ff00" 
-          transparent 
-          opacity={0.3} 
-          wireframe
-        />
-      </mesh>
+
+      {/* Render target zones from question data */}
+      {zones && zones.map((zone, index) => (
+        <mesh
+          key={index}
+          position={[zone.x, zone.y, zone.z]}
+          rotation={[0, 0, 0]}
+          raycast={() => null}
+        >
+          <sphereGeometry args={[zone.radius, 32, 32]} />
+          <meshStandardMaterial
+            color="#00ff00"
+            transparent
+            opacity={0.3}
+            wireframe
+          />
+        </mesh>
+      ))}
 
       <primitive
         object={fbx}
