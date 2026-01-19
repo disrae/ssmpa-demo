@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { getCurrentLesson, getLessonById, getTurkeyLessons, VideoLesson, Question } from '@/lib/questions';
+import { parseTimeToSeconds } from '@/lib/utils';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { QuestionOverlay } from '@/components/QuestionOverlay';
 import { CurriculumSidebar } from '@/components/CurriculumSidebar';
@@ -25,7 +26,8 @@ export default function DemoPage() {
   const questionsBySecond = useMemo(() => {
     const questions: Record<number, Question[]> = {};
     currentLesson.questions.forEach(questionGroup => {
-      questions[Math.floor(questionGroup.time)] = questionGroup.questions;
+      const timeInSeconds = parseTimeToSeconds(questionGroup.time);
+      questions[Math.floor(timeInSeconds)] = questionGroup.questions;
     });
     return questions;
   }, [currentLesson]);

@@ -19,7 +19,7 @@ export interface Question {
 }
 
 export interface QuestionGroup {
-  time: number; // seconds into video
+  time: number | string; // seconds into video, or time string like "2:33"
   questions: Question[];
 }
 
@@ -42,6 +42,8 @@ export interface Module {
   implemented: boolean;
 }
 
+import { parseTimeToSeconds } from './utils';
+
 export const curriculumModules: Module[] = [
   {
     id: 'module-1',
@@ -59,7 +61,7 @@ export const curriculumModules: Module[] = [
         id: 'module1-placeholder',
         title: 'Licensing Requirements',
         description: 'BC Meat Inspection Program requirements (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -81,7 +83,7 @@ export const curriculumModules: Module[] = [
         id: 'module2-placeholder',
         title: 'Equipment Standards',
         description: 'Facility and equipment requirements (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -103,7 +105,7 @@ export const curriculumModules: Module[] = [
         id: 'module3-placeholder',
         title: 'Welfare Codes',
         description: 'Animal welfare standards and protocols (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -126,11 +128,11 @@ export const curriculumModules: Module[] = [
         id: 'turkey-handling',
         title: 'Live Bird Handling & Welfare',
         description: 'Proper turkey handling techniques for animal welfare and product quality',
-        duration: 180, // Based on transcript timing
+        duration: 149,
         videoSrc: 'https://stream.mux.com/GCXxvCf5WuO01VtiRlGjuXQgRmY9TnArm6EeO800UJtY8.m3u8',
         questions: [
           {
-            time: 36,
+            time: "0:36",
             questions: [
               {
                 id: 'handling-claws',
@@ -154,7 +156,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 60,
+            time: "1:00",
             questions: [
               {
                 id: 'handling-herding',
@@ -178,7 +180,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 83,
+            time: "1:23",
             questions: [
               {
                 id: 'handling-trailer-blackout',
@@ -202,7 +204,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 119,
+            time: "1:59",
             questions: [
               {
                 id: 'handling-wing-flapping',
@@ -215,7 +217,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 142,
+            time: "2:22",
             questions: [
               {
                 id: 'handling-complete-approach',
@@ -244,11 +246,11 @@ export const curriculumModules: Module[] = [
         id: 'turkey-stunning',
         title: 'Stunning & Bleeding Procedures',
         description: 'Humane stunning techniques and proper bleeding methods',
-        duration: 180, // Based on transcript timing
+        duration: 155,
         videoSrc: 'https://stream.mux.com/Ai3oErF025rXJ5pEFTG3VO7fiiOwV3VTbyDbKbiv6o700.m3u8',
         questions: [
           {
-            time: 20,
+            time: "0:20",
             questions: [
               {
                 id: 'stunning-certification',
@@ -261,7 +263,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 79,
+            time: "1:19",
             questions: [
               {
                 id: 'stunning-knife',
@@ -285,7 +287,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 100,
+            time: "1:40",
             questions: [
               {
                 id: 'stunning-location',
@@ -305,7 +307,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 127,
+            time: "2:07",
             questions: [
               {
                 id: 'transverse-context',
@@ -345,7 +347,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 143,
+            time: "2:23",
             questions: [
               {
                 id: 'stunning-sticking-procedure',
@@ -364,7 +366,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 150,
+            time: "2:30",
             questions: [
               {
                 id: 'bleeding-completion',
@@ -382,11 +384,11 @@ export const curriculumModules: Module[] = [
         id: 'turkey-scalding',
         title: 'Scalding & Plucking Preparation',
         description: 'Pre-plucking feather removal and scalder monitoring',
-        duration: 120, // Based on transcript timing
+        duration: 101,
         videoSrc: 'https://stream.mux.com/gdQQtReUs2AWFaYJKW02k7t2FiWBeDox73IL19bYFCaM.m3u8',
         questions: [
           {
-            time: 54,
+            time: "0:54",
             questions: [
               {
                 id: 'scalding-1',
@@ -410,7 +412,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 75,
+            time: "1:15",
             questions: [
               {
                 id: 'scalding-2',
@@ -428,11 +430,11 @@ export const curriculumModules: Module[] = [
         id: 'turkey-evisceration',
         title: 'Evisceration & Final Processing',
         description: 'Organ removal and carcass finishing procedures',
-        duration: 240, // Based on transcript timing
-        videoSrc: 'https://stream.mux.com/gdQQtReUs2AWFaYJKW02k7t2FiWBeDox73IL19bYFCaM.m3u8',
+        duration: 237, // Based on transcript timing
+        videoSrc: 'https://stream.mux.com/Sj4rvhHDCm4i6nD4exxpkRCtbAXYhWWMO31Ydem00hG00.m3u8',
         questions: [
           {
-            time: 45,
+            time: "0:53",
             questions: [
               {
                 id: 'evisceration-1',
@@ -456,7 +458,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 115,
+            time: "2:02",
             questions: [
               {
                 id: 'evisceration-2',
@@ -464,12 +466,12 @@ export const curriculumModules: Module[] = [
                 question: 'The gallbladder should be carefully pinched off from the liver.',
                 correctAnswer: true,
                 explanation: 'Pinching off the gallbladder prevents bile leakage which can contaminate the meat and cause off-flavors.',
-                wrongAnswerHints: 'Consider why the gallbladder needs special handling during liver removal.'
+                wrongAnswerHints: 'The gallbladder contains bile that can leak and contaminate the meat, causing off-flavors.'
               }
             ]
           },
           {
-            time: 135,
+            time: "2:38",
             questions: [
               {
                 id: 'evisceration-3',
@@ -482,7 +484,7 @@ export const curriculumModules: Module[] = [
                   'Only visible organs'
                 ],
                 correctAnswer: 1,
-                explanation: 'All specified risk materials including heart, liver, lungs, kidneys, trachea, and glands must be removed.',
+                explanation: 'All specified risk materials including heart, liver, lungs, kidneys, trachea, and glands must be removed. These tissues are classified as specified risk materials (SRMs) because they may contain prions - infectious proteins that cause diseases like bovine spongiform encephalopathy (BSE). Removing SRMs prevents potential transmission of these diseases through the food chain.',
                 wrongAnswerHints: [
                   'More than just intestines need removal.',
                   '', // Correct answer
@@ -493,7 +495,7 @@ export const curriculumModules: Module[] = [
             ]
           },
           {
-            time: 160,
+            time: "2:46",
             questions: [
               {
                 id: 'evisceration-4',
@@ -525,7 +527,7 @@ export const curriculumModules: Module[] = [
         id: 'module5-placeholder',
         title: 'Chicken Processing',
         description: 'Chicken-specific slaughter and processing methods (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -547,7 +549,7 @@ export const curriculumModules: Module[] = [
         id: 'module6-placeholder',
         title: 'Beef Processing',
         description: 'Cattle and bison slaughter procedures (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -569,7 +571,7 @@ export const curriculumModules: Module[] = [
         id: 'module7-placeholder',
         title: 'HACCP Implementation',
         description: 'Hazard Analysis Critical Control Points (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -591,7 +593,7 @@ export const curriculumModules: Module[] = [
         id: 'module8-placeholder',
         title: 'Mobile Unit Operations',
         description: 'Trailer setup and on-site processing (Not yet implemented)',
-        duration: 600,
+        duration: 0,
         videoSrc: '',
         questions: []
       }
@@ -601,7 +603,7 @@ export const curriculumModules: Module[] = [
 
 // Helper function to get current lesson (for demo, start with turkey stunning)
 export const getCurrentLesson = (): VideoLesson => {
-  return curriculumModules[3].lessons[2];
+  return curriculumModules[3].lessons[3];
 };
 
 // Helper function to get all lessons for navigation

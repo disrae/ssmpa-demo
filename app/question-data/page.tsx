@@ -2,6 +2,7 @@
 
 import { curriculumModules } from '@/lib/questions';
 import { ChevronLeft, ChevronDown, ChevronRight, Database } from 'lucide-react';
+import { parseTimeToSeconds, formatTime } from '@/lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -98,7 +99,7 @@ export default function QuestionDataPage() {
                                 {getQuestionTypeLabel(question.type)}
                               </span>
                               <span className="text-sm font-semibold text-gray-900">
-                                {formatTime(questionGroup.time)}{questionGroup.questions.length > 1 ? ` (${qIndex + 1}/${questionGroup.questions.length})` : ''}
+                                {formatTime(parseTimeToSeconds(questionGroup.time))}{questionGroup.questions.length > 1 ? ` (${qIndex + 1}/${questionGroup.questions.length})` : ''}
                               </span>
                             </div>
                             <span className="text-xs font-bold text-gray-900">#{groupIndex + 1}.{qIndex + 1}</span>
