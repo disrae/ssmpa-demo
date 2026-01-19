@@ -2,6 +2,8 @@
 
 import { curriculumModules, VideoLesson } from '@/lib/demo-data';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { Database } from 'lucide-react';
 
 interface CurriculumSidebarProps {
   isOpen: boolean;
@@ -36,6 +38,18 @@ export function CurriculumSidebar({ isOpen, onClose, onLessonSelect }: Curriculu
           <p className="text-sm text-muted-foreground mt-1">
             SSMPA Training Material
           </p>
+        </div>
+
+        {/* Question Data Button */}
+        <div className="px-4 pb-4">
+          <Link
+            href="/question-data"
+            onClick={onClose}
+              className="w-full bg-accent-800 hover:bg-accent-900 text-white px-4 py-3 rounded-lg font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:scale-102"
+          >
+            <Database className="w-5 h-5" />
+            View Question Data
+          </Link>
         </div>
 
         <div className="p-4">
@@ -76,7 +90,7 @@ export function CurriculumSidebar({ isOpen, onClose, onLessonSelect }: Curriculu
                       {module.title}
                     </h3>
                     {!module.implemented && (
-                      <span className="text-xs bg-muted text-foreground px-2 py-1 rounded-full font-medium">
+                      <span className="text-xs bg-gray-100 text-center text-muted-foreground px-2 py-1 rounded-full font-medium">
                         Coming Soon
                       </span>
                     )}
