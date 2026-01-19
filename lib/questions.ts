@@ -302,6 +302,10 @@ export const curriculumModules: Module[] = [
                   zones: [
                     { x: -0.06378170048081416, y: 68, z: 29, radius: 1.25 }
                   ]
+                },
+                cameraView: {
+                  position: [2, 110, -150],
+                  target: [0, 25, 0]
                 }
               }
             ]

@@ -47,9 +47,9 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
           Moved the red ball inside TurkeyModel to ensure it uses the same coordinate space.
        */}
        <Canvas shadows camera={{
-        position: [2, 25, 150],
-         fov: 45
-       }}>
+        position: question.cameraView?.position || [2, 25, 150],
+        fov: 45
+      }}>
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={2} />
         <Suspense fallback={null}>
@@ -60,7 +60,7 @@ export function ThreeDQuestion({ question, onAnswer }: ThreeDQuestionProps) {
               zones={question.targetZone?.zones || []}
             />
           </Stage>
-          <OrbitControls makeDefault target={[0, 40, 0]} />
+          <OrbitControls makeDefault target={question.cameraView?.target || [0, 40, 0]} />
         </Suspense>
       </Canvas>
       

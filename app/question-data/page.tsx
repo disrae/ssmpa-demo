@@ -95,6 +95,32 @@ export default function QuestionDataPage() {
     }
   };
 
+  const getQuestionTypeColor = (type: string) => {
+    switch (type) {
+      case 'multiple-choice': return 'bg-blue-100 text-blue-800';
+      case 'true-false': return 'bg-green-100 text-green-800';
+      case 'order': return 'bg-purple-100 text-purple-800';
+      case '3d-point': return 'bg-orange-100 text-orange-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getQuestionTypes = (questions: Question[]) => {
+    const types = [...new Set(questions.map(q => q.type))];
+    return (
+      <div className="flex flex-wrap gap-1">
+        {types.map(type => (
+          <span
+            key={type}
+            className={`px-2 py-1 text-xs font-semibold rounded-full ${getQuestionTypeColor(type)}`}
+          >
+            {getQuestionTypeLabel(type)}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   const getQuestionGroupTitle = (lessonId: string, time: string) => {
     // Handling & Transport
     if (lessonId === 'turkey-handling') {
@@ -214,7 +240,13 @@ export default function QuestionDataPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">{lesson.title}</h3>
-                    <p className="text-sm font-semibold text-gray-900">{lesson.questions.reduce((total, group) => total + group.questions.length, 0)} questions</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="text-sm font-semibold text-gray-900">
+                        {lesson.questions.reduce((total, group) => total + group.questions.length, 0)} questions
+                      </p>
+                      <span className="text-gray-600">-</span>
+                      {getQuestionTypes(lesson.questions.flatMap(group => group.questions))}
+                    </div>
                   </div>
                 </div>
                 {expandedLessons.has(lesson.id) ? (
@@ -247,9 +279,13 @@ export default function QuestionDataPage() {
                                 <h5 className="text-base font-bold text-gray-900">
                                   {getQuestionGroupTitle(lesson.id, String(questionGroup.time))}
                                 </h5>
-                                <p className="text-sm font-semibold text-gray-700">
-                                  {formatTime(parseTimeToSeconds(questionGroup.time))} - {questionGroup.questions.length} question{questionGroup.questions.length !== 1 ? 's' : ''}
-                                </p>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <p className="text-sm font-semibold text-gray-700">
+                                    {formatTime(parseTimeToSeconds(questionGroup.time))} - {questionGroup.questions.length} question{questionGroup.questions.length !== 1 ? 's' : ''}
+                                  </p>
+                                  <span className="text-gray-600">-</span>
+                                  {getQuestionTypes(questionGroup.questions)}
+                                </div>
                               </div>
                             </div>
                             {isExpanded ? (
