@@ -240,11 +240,7 @@ export default function QuestionDataPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">{lesson.title}</h3>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-semibold text-gray-900">
-                        {lesson.questions.reduce((total, group) => total + group.questions.length, 0)} questions
-                      </p>
-                      <span className="text-gray-600">-</span>
+                    <div className="flex items-center gap-2 flex-wrap mt-2">
                       {getQuestionTypes(lesson.questions.flatMap(group => group.questions))}
                     </div>
                   </div>
