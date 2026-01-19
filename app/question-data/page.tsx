@@ -121,7 +121,7 @@ export default function QuestionDataPage() {
       </div>
 
       {/* Info Section */}
-      <div className="w-full bg-background border-b border-border px-4 md:px-6 py-6">
+      <div className="w-full bg-background px-4 md:px-6 py-6">
         <div className="max-w-6xl mx-auto">
           <div className="space-y-3">
             <h2 className="text-lg font-bold text-gray-900">Question Data Structure</h2>
@@ -156,7 +156,7 @@ export default function QuestionDataPage() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
         <div className="space-y-4">
           {lessons.map((lesson, index) => (
-            <div key={lesson.id} className="bg-surface border border-border rounded-lg overflow-hidden">
+            <div key={lesson.id} className="bg-surface  rounded-lg overflow-hidden">
               {/* Lesson Header */}
               <button
                 onClick={() => toggleLesson(lesson.id)}
