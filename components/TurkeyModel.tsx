@@ -63,9 +63,9 @@ export function TurkeyModel({ onPointSelect, selectedPoint, zones }: TurkeyModel
         >
           <sphereGeometry args={[zone.radius, 32, 32]} />
           <meshStandardMaterial
-            color="#00ff00"
+            color="#12c712"
             transparent
-            opacity={0.3}
+            opacity={0.4}
             wireframe
           />
         </mesh>
