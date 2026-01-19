@@ -60,9 +60,14 @@ export default function QuestionDataPage() {
       isCorrect = JSON.stringify(answer) === JSON.stringify(activeQuestion.correctAnswer);
       message = isCorrect ? activeQuestion.explanation : 'Incorrect order. Try again!';
     } else if (activeQuestion.type === '3d-point') {
-      // For 3D point questions, the ThreeDQuestion component handles correctness internally
-      isCorrect = true; // Assume correct for now since 3D component handles feedback
-      message = activeQuestion.explanation;
+      isCorrect = answer === activeQuestion.correctAnswer;
+      if (isCorrect) {
+        message = activeQuestion.explanation;
+      } else {
+        message = Array.isArray(activeQuestion.wrongAnswerHints)
+          ? activeQuestion.wrongAnswerHints[0] || 'Try again!'
+          : activeQuestion.wrongAnswerHints || 'Try again!';
+      }
     }
 
     setQuestionFeedback({ isCorrect, message });
