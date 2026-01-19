@@ -603,7 +603,7 @@ export const curriculumModules: Module[] = [
 
 // Helper function to get current lesson (for demo, start with turkey stunning)
 export const getCurrentLesson = (): VideoLesson => {
-  return curriculumModules[3].lessons[3];
+  return curriculumModules[3].lessons[0];
 };
 
 // Helper function to get all lessons for navigation

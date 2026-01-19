@@ -1,14 +1,17 @@
 'use client';
 
-import { curriculumModules, Question, QuestionGroup } from '@/lib/questions';
-import { ChevronLeft, ChevronDown, ChevronRight, Database } from 'lucide-react';
-import { parseTimeToSeconds, formatTime } from '@/lib/utils';
+import { curriculumModules, Question } from '@/lib/questions';
+import { ChevronLeft, ChevronDown, ChevronRight, Play } from 'lucide-react';
+import { parseTimeToSeconds } from '@/lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
+import { QuestionOverlay } from '@/components/QuestionOverlay';
 
 export default function QuestionDataPage() {
   const [expandedLessons, setExpandedLessons] = useState<Set<string>>(new Set());
   const [expandedQuestionGroups, setExpandedQuestionGroups] = useState<Set<string>>(new Set());
+  const [activeQuestion, setActiveQuestion] = useState<Question | null>(null);
+  const [questionFeedback, setQuestionFeedback] = useState<{ isCorrect: boolean; message: string } | null>(null);
 
   const turkeyModule = curriculumModules.find(m => m.id === 'module-4'); // Turkey processing module
   const lessons = turkeyModule?.lessons || [];
@@ -31,6 +34,49 @@ export default function QuestionDataPage() {
       newExpanded.add(groupKey);
     }
     setExpandedQuestionGroups(newExpanded);
+  };
+
+  const handleTryQuestion = (question: Question) => {
+    setActiveQuestion(question);
+    setQuestionFeedback(null);
+  };
+
+  const handleQuestionAnswer = (answer: number | boolean | number[]) => {
+    if (!activeQuestion) return;
+
+    let isCorrect = false;
+    let message = '';
+
+    if (activeQuestion.type === 'multiple-choice' || activeQuestion.type === 'true-false') {
+      isCorrect = answer === activeQuestion.correctAnswer;
+      if (isCorrect) {
+        message = activeQuestion.explanation;
+      } else {
+        message = Array.isArray(activeQuestion.wrongAnswerHints)
+          ? activeQuestion.wrongAnswerHints[answer as number] || 'Try again!'
+          : activeQuestion.wrongAnswerHints || 'Try again!';
+      }
+    } else if (activeQuestion.type === 'order') {
+      isCorrect = JSON.stringify(answer) === JSON.stringify(activeQuestion.correctAnswer);
+      message = isCorrect ? activeQuestion.explanation : 'Incorrect order. Try again!';
+    } else if (activeQuestion.type === '3d-point') {
+      // For 3D point questions, the ThreeDQuestion component handles correctness internally
+      isCorrect = true; // Assume correct for now since 3D component handles feedback
+      message = activeQuestion.explanation;
+    }
+
+    setQuestionFeedback({ isCorrect, message });
+  };
+
+  const handleCloseOverlay = () => {
+    setActiveQuestion(null);
+    setQuestionFeedback(null);
+  };
+
+  const handleWatchAgain = () => {
+    // For the question data page, we don't have a video to rewind
+    // This could be enhanced later to scroll to the relevant question group
+    console.log('Watch again clicked - no video available in question data view');
   };
 
   const formatTime = (seconds: number) => {
@@ -337,6 +383,17 @@ export default function QuestionDataPage() {
                               </div>
                             </div>
                           )}
+
+                          {/* Try Question Button */}
+                          <div className="mt-4 flex justify-center">
+                            <button
+                              onClick={() => handleTryQuestion(question)}
+                              className="flex items-center gap-2 bg-accent-800 hover:bg-accent-900 text-white px-4 py-2 rounded-lg transition-all cursor-pointer transform hover:scale-105 font-medium"
+                            >
+                              <Play className="w-4 h-4" />
+                              Try Question
+                            </button>
+                          </div>
                               </div>
                             </div>
                                 ))}
@@ -353,6 +410,17 @@ export default function QuestionDataPage() {
           ))}
         </div>
       </div>
+
+      {/* Question Overlay */}
+      {activeQuestion && (
+        <QuestionOverlay
+          question={activeQuestion}
+          onAnswer={handleQuestionAnswer}
+          onClose={handleCloseOverlay}
+          onWatchAgain={handleWatchAgain}
+          feedback={questionFeedback}
+        />
+      )}
     </div>
   );
 }
