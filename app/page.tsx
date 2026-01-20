@@ -18,6 +18,7 @@ export default function DemoPage() {
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; message: string; } | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [currentQuestionGroupTime, setCurrentQuestionGroupTime] = useState<number>(0);
   const [currentLesson, setCurrentLesson] = useState<VideoLesson>(getCurrentLesson());
   const lastProcessedSecond = useRef<number>(-1);
   const previousTime = useRef<number>(0);
@@ -49,6 +50,7 @@ export default function DemoPage() {
       setFeedback(null);
       setCurrentQuestion(null);
       setCurrentQuestionIndex(0);
+      setCurrentQuestionGroupTime(0);
       setSeekTo(undefined);
       lastProcessedSecond.current = -1;
       previousTime.current = 0;
@@ -84,6 +86,7 @@ export default function DemoPage() {
       if (questionsAtSecond && questionsAtSecond.length > 0 && !showQuestion) {
         setCurrentQuestion(questionsAtSecond[0]); // Start with first question in the group
         setCurrentQuestionIndex(0);
+        setCurrentQuestionGroupTime(currentSecond);
         setIsPlaying(false);
         setShowQuestion(true);
       }
@@ -159,6 +162,7 @@ export default function DemoPage() {
       const nextQuestionIndex = currentQuestionIndex + 1;
       setCurrentQuestion(questionsAtSecond[nextQuestionIndex]);
       setCurrentQuestionIndex(nextQuestionIndex);
+      setCurrentQuestionGroupTime(currentSecond); // Same group, same time
       setFeedback(null);
       // Keep showQuestion true to show the next question
     } else {
@@ -170,7 +174,22 @@ export default function DemoPage() {
   };
 
   const handleWatchAgain = () => {
-    const seekTarget = Math.max(0, currentTime - 4);
+    // Get all question timestamps
+    const questionTimestamps = currentLesson.questions
+      .map(group => Math.floor(parseTimeToSeconds(group.time)))
+      .sort((a, b) => a - b);
+
+    // Find the previous question timestamp (the highest one before current question group)
+    const previousQuestionTime = questionTimestamps
+      .filter(time => time < currentQuestionGroupTime)
+      .pop(); // Get the last (highest) one
+
+    // If we found a previous question, seek to 1 second after it
+    // If no previous question (first question), go to beginning (0)
+    const seekTarget = previousQuestionTime !== undefined
+      ? previousQuestionTime + 1
+      : 0;  // First question - go to beginning
+
     setSeekTo(seekTarget);
     setFeedback(null);
     setShowQuestion(false);
